@@ -106,6 +106,7 @@ button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .notes-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.4,0,.2,1)}
 .notes.open .notes-body{grid-template-rows:1fr}
 .notes-in{overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:16px}
+.notes.open .notes-in{max-height:min(55vh,460px);overflow-y:auto;overscroll-behavior:contain;padding-right:6px}
 .notes-in>:first-child{margin-top:16px}
 .notes-in>:last-child{margin-bottom:6px;padding-bottom:16px;border-bottom:1px solid var(--line)}
 @media (prefers-reduced-motion: reduce){.notes-body{transition:none}}
