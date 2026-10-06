@@ -13,12 +13,13 @@
 :root{
   --bg:#f6f7f9; --card:#ffffff; --ink:#14161c; --soft:#646b7a; --line:#e2e5ea;
   --m-subj:#12a37a; --m-verb:#e0457b; --m-prep:#d99a00; --m-verbal:#7b5cf0; --m-voice:#2f7de1; --m-boss:#5b6474;
+  --x-cyan:#0e93ad; --x-orange:#e8590c; --x-indigo:#4f5bd5; --x-olive:#5f8f1a; --x-magenta:#c026a8;
   --good:#12a37a; --bad:#d6455d;
   --display:"Instrument Sans","Helvetica Neue",Arial,system-ui,sans-serif;
   --body:"Instrument Sans","Helvetica Neue",Arial,system-ui,sans-serif;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0e1014; --card:#16191f; --ink:#eceef2; --soft:#9aa1b0; --line:#272b34; --m-subj:#3fcf9f; --m-verb:#ff6b9d; --m-prep:#f0b93a; --m-verbal:#a48bff; --m-voice:#6aa8ff; --m-boss:#9aa1b0; --good:#3fcf9f; --bad:#ff7a8a; color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0e1014; --card:#16191f; --ink:#eceef2; --soft:#9aa1b0; --line:#272b34; --m-subj:#3fcf9f; --m-verb:#ff6b9d; --m-prep:#f0b93a; --m-verbal:#a48bff; --m-voice:#6aa8ff; --m-boss:#9aa1b0; --good:#3fcf9f; --bad:#ff7a8a; color-scheme:dark}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0e1014; --card:#16191f; --ink:#eceef2; --soft:#9aa1b0; --line:#272b34; --m-subj:#3fcf9f; --m-verb:#ff6b9d; --m-prep:#f0b93a; --m-verbal:#a48bff; --m-voice:#6aa8ff; --m-boss:#9aa1b0; --x-cyan:#4cc9e0; --x-orange:#ff8f4d; --x-indigo:#8f9bff; --x-olive:#a3d154; --x-magenta:#f070dc; --good:#3fcf9f; --bad:#ff7a8a; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1014; --card:#16191f; --ink:#eceef2; --soft:#9aa1b0; --line:#272b34; --m-subj:#3fcf9f; --m-verb:#ff6b9d; --m-prep:#f0b93a; --m-verbal:#a48bff; --m-voice:#6aa8ff; --m-boss:#9aa1b0; --x-cyan:#4cc9e0; --x-orange:#ff8f4d; --x-indigo:#8f9bff; --x-olive:#a3d154; --x-magenta:#f070dc; --good:#3fcf9f; --bad:#ff7a8a; color-scheme:dark}
 
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5;padding-inline:16px;padding-block:28px 56px;-webkit-font-smoothing:antialiased}
@@ -53,7 +54,7 @@ button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:18px}
 @media (max-width:480px){.panel{padding:18px}}
 .rule{display:flex;flex-direction:column;gap:10px;padding:0;margin:0;list-style:none}
-.rule li{padding-left:14px;border-left:2px solid var(--mk);line-height:1.9}
+.rule li{padding-left:14px;border-left:2px solid var(--line);line-height:1.9}
 .trick{background:color-mix(in srgb,var(--mk) 10%,transparent);border:1px solid color-mix(in srgb,var(--mk) 35%,transparent);border-radius:10px;padding:12px 14px;font-weight:500}
 
 .bar{display:flex;gap:4px}
@@ -84,13 +85,30 @@ button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .fb.no{border-color:color-mix(in srgb,var(--bad) 45%,transparent);background:color-mix(in srgb,var(--bad) 6%,transparent)}
 .fb strong{font-size:1.05rem;font-weight:600}
 .ex{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
-.ex li{padding-left:12px;border-left:2px solid var(--mk);line-height:1.8}
+.ex li{padding-left:12px;border-left:2px solid var(--line);line-height:1.8}
 .hint{border-left:2px solid var(--mk);padding-left:12px}
 .big{display:flex;gap:6px}
 .big i{height:6px;width:48px;border-radius:3px}
 
 .xray{border-top:1px solid var(--line);padding-top:14px;margin-top:4px;display:flex;flex-direction:column;gap:10px}
 .xr{font-size:1.05rem;line-height:2.2}
+.ca{--c:var(--x-cyan)} .cb{--c:var(--x-orange)} .cc{--c:var(--x-indigo)} .cd{--c:var(--x-olive)} .ce{--c:var(--x-magenta)}
+.dot{flex:none;display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--c)}
+.dot.rn{background:none;outline:1px dashed var(--soft)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.85rem;color:var(--soft)}
+.key span{display:inline-flex;align-items:center;gap:6px}
+.label{text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;margin-bottom:-6px}
+.opt{display:flex;align-items:center;gap:10px}
+.notes{display:flex;flex-direction:column}
+.notes #notes{align-self:flex-start}
+.notes #notes::after{content:" \25BE"}
+.notes.open #notes::after{content:" \25B4"}
+.notes-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.4,0,.2,1)}
+.notes.open .notes-body{grid-template-rows:1fr}
+.notes-in{overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:16px}
+.notes-in>:first-child{margin-top:16px}
+.notes-in>:last-child{margin-bottom:6px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+@media (prefers-reduced-motion: reduce){.notes-body{transition:none}}
 .rk{--c:var(--m-voice)} .rs{--c:var(--m-subj)} .rv{--c:var(--m-verb)} .rp{--c:var(--m-prep)} .rx{--c:var(--m-verbal)}
 .xr span[class],.panel b[class]{background:color-mix(in srgb,var(--c) 20%,transparent);box-shadow:inset 0 -2px 0 var(--c);padding:2px 6px;border-radius:4px;color:var(--ink);font-weight:600;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .xr span.us,.panel b.us{box-shadow:inset 0 -2px 0 var(--c),0 3px 0 var(--m-subj)}
@@ -103,13 +121,6 @@ button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .brush{border:1px solid var(--mk);border-radius:8px;padding:8px 14px;min-height:42px;font-weight:600;font-size:.9rem;background:color-mix(in srgb,var(--mk) 20%,transparent)}
 .brush.erase{background:none;border:1px dashed var(--soft);color:var(--soft)}
 .brush.on{box-shadow:0 0 0 2px var(--ink)}
-.rule li:has(b.rs){border-left-color:var(--m-subj)}
-.rule li:has(b.rv){border-left-color:var(--m-verb)}
-.rule li:has(b.rp){border-left-color:var(--m-prep)}
-.rule li:has(b.rx){border-left-color:var(--m-verbal)}
-.rule li:has(b.rk){border-left-color:var(--m-voice)}
-.rule li:has(b.rn){border-left-color:var(--line)}
-.rule li:has(b.rv):has(b.rs){border-left-color:var(--ink)}
 @media (prefers-reduced-motion: reduce){.chunk,.mission{transition:none}}
 </style>
 
@@ -152,14 +163,14 @@ var WORLDS=[
 {id:"verb",name:"Verbs",skill:"Find the verbs",mark:"--m-verb",type:"select",ask:"Tap every <b>verb</b>",test:isV},
 {id:"subj",name:"Subjects",skill:"Find the complete subjects",mark:"--m-subj",type:"select",ask:"Tap every chunk of a <b>complete subject</b>",test:isS},
 {id:"prep",name:"Prepositional phrases",skill:"Find the prepositional phrases",mark:"--m-prep",type:"select",ask:"Tap every <b>prepositional phrase</b>",test:isP},
-{id:"verbal",name:"Verbals",skill:"Gerund, participle or infinitive?",mark:"--m-verbal",type:"pick",ask:"What is the <b>highlighted</b> part?",opts:OPT_VERBAL},
-{id:"voice",name:"Active and passive",skill:"Active or passive?",mark:"--m-verb",type:"pick",ask:"Is the <b>highlighted</b> verb active or passive?",opts:OPT_VOICE},
-{id:"conj",name:"Conjunctions",skill:"Coordinating or subordinating?",mark:"--m-voice",type:"pick",ask:"What kind of conjunction is the <b>highlighted</b> word?",opts:OPT_CONJ},
+{id:"verbal",name:"Verbals",skill:"Gerund, participle or infinitive?",mark:"--m-verbal",type:"pick",ask:"What is the <b>highlighted</b> part?",opts:OPT_VERBAL,optc:["rx","ca","cb","rp"]},
+{id:"voice",name:"Active and passive",skill:"Active or passive?",mark:"--m-verb",type:"pick",ask:"Is the <b>highlighted</b> verb active or passive?",opts:OPT_VOICE,optc:["rv","cc"]},
+{id:"conj",name:"Conjunctions",skill:"Coordinating or subordinating?",mark:"--m-voice",type:"pick",ask:"What kind of conjunction is the <b>highlighted</b> word?",opts:OPT_CONJ,optc:["rk","ce"]},
 {id:"stype",name:"Sentence types",skill:"Simple, compound or complex?",mark:"--m-boss",type:"pick",ask:"What <b>type of sentence</b> is this?",opts:STYPE},
-{id:"mood",name:"Verb moods",skill:"Indicative, conditional, subjunctive...",mark:"--m-verbal",type:"pick",ask:"What <b>mood</b> is the highlighted verb in?",opts:OPT_MOOD},
+{id:"mood",name:"Verb moods",skill:"Indicative, conditional, subjunctive...",mark:"--m-verbal",type:"pick",ask:"What <b>mood</b> is the highlighted verb in?",opts:OPT_MOOD,optc:["ca","rk","cd","cb","ce"]},
 {id:"paint",name:"Full markup",skill:"Mark every structure in the sentence",mark:"--m-boss",type:"paint",round:5,ask:"Pick a color, then tap the chunks. <b>Color everything you can.</b>"}
 ];
-WORLDS.forEach(function(w){var k=BANK.missions[w.id]||{};w.rule=k.rule||[];w.trick=k.trick||"";w.ex=k.ex||[];});
+WORLDS.forEach(function(w){var k=BANK.missions[w.id]||{};w.key=k.key||[];w.rule=k.rule||[];w.trick=k.trick||"";w.ex=k.ex||[];});
 var BOSS={id:"boss",name:"Mixed set",skill:"Questions from every set",mark:"--m-boss"};
 var ROUND=10;
 
@@ -232,8 +243,16 @@ function startRound(id){
     var sets=WORLDS.filter(function(w){return w.id!=="paint";});
     sets.concat(shuffle(sets).slice(0,2)).forEach(function(w){items=items.concat(build(w,1));});
   }else{var w=world(id);items=build(w,w.round||ROUND);}
-  G={id:id,total:items.length,queue:shuffle(items),i:0,sel:{},paint:{},brush:"v",picked:-1,checked:false,ok:false,first:0,xp:0,streak:0,hint:false};
+  G={id:id,total:items.length,queue:shuffle(items),i:0,sel:{},paint:{},brush:"v",picked:-1,checked:false,ok:false,first:0,xp:0,streak:0,hint:false,notesOpen:true};
   view="play";render();
+  /* The notes start open, then slide shut into their button. */
+  var round=G;
+  setTimeout(function(){
+    if(G!==round||!document.querySelector)return;
+    var el=document.querySelector(".notes");
+    G.notesOpen=false;
+    if(el){el.classList.remove("open");el.firstChild.setAttribute("aria-expanded","false");}
+  },450);
 }
 function finish(){
   var stars=G.first>=G.total?3:G.first>=G.total*0.7?2:1;
@@ -257,6 +276,18 @@ function grade(ok){
   }
   render();
   var n=document.getElementById("next");if(n)n.focus();
+}
+/* The review notes for one set: legend, key points, reminder, every example. */
+function notesHtml(w){
+  var h="";
+  if(w.key&&w.key.length)h+='<div class="key">'+w.key.map(function(k){return '<span><i class="dot '+k[0]+'"></i>'+k[1]+'</span>';}).join("")+'</div>';
+  h+='<ul class="rule">'+w.rule.map(function(r){return "<li>"+r+"</li>";}).join("")+'</ul><p class="trick">'+w.trick+'</p>';
+  h+='<p class="small soft label">Examples</p><ul class="ex">'+w.ex.map(function(e){return '<li>'+e[0]+'<br><span class="small soft">'+e[1]+'</span></li>';}).join("")+'</ul>';
+  return h;
+}
+function notesDrawer(w){
+  return '<div class="notes'+(G.notesOpen?" open":"")+'"><button class="ghost" id="notes" aria-expanded="'+(!!G.notesOpen)+'">Notes: '+w.name+'</button>'+
+         '<div class="notes-body"><div class="notes-in">'+notesHtml(w)+'</div></div></div>';
 }
 function roleName(r){return PAINT.filter(function(p){return p[0]===r;})[0][1].toLowerCase();}
 
@@ -317,8 +348,7 @@ function render(){
   }
   else if(view==="tip"){
     var w=G;
-    h+='<div class="panel" style="--mk:var('+w.mark+')"><p class="small soft">'+w.name+' &middot; '+(w.round||ROUND)+' questions</p><h2>'+w.skill+'</h2><ul class="rule">'+
-       w.rule.map(function(r){return "<li>"+r+"</li>";}).join("")+'</ul><p class="trick">'+w.trick+'</p>'+
+    h+='<div class="panel" style="--mk:var('+w.mark+')"><p class="small soft">'+w.name+' &middot; '+(w.round||ROUND)+' questions</p><h2>'+w.skill+'</h2>'+notesHtml(w)+
        '<div class="row"><button class="ghost" id="home">Back</button><button class="go" id="start">Start</button></div></div>';
   }
   else if(view==="play"){
@@ -326,7 +356,7 @@ function render(){
     h+='<div class="panel" style="--mk:var('+w.mark+')"><div class="bar">';
     G.queue.forEach(function(_,n){h+='<i class="'+(n<G.i?"done":n===G.i?"now":"")+'"></i>';});
     h+='</div><div class="row small soft"><span>'+(it.retry?"Second chance":"Question "+(G.i+1)+" of "+G.queue.length+(G.i>0&&G.i===Math.floor(G.total/2)?" · Halfway. Stretch if you want.":""))+'</span><span>Streak '+G.streak+' &middot; +'+G.xp+' XP</span></div>'+
-       '<p class="ask">'+w.ask+'</p>';
+       notesDrawer(w)+'<p class="ask">'+w.ask+'</p>';
     if(w.type==="select"||w.type==="paint"){
       var paint=w.type==="paint";
       if(paint&&!G.checked){
@@ -353,10 +383,10 @@ function render(){
         h+='<div class="row"><button class="ghost" id="hint">Hint</button><button class="go" id="check"'+(any?"":" disabled")+'>Check</button></div>';
       }
     }else{
-      h+='<p class="sentence">'+cs.map(function(c,n){return (n===it.tgt?"<b>"+c.text+"</b>":c.text)+c.punct;}).join(" ")+'</p><div class="opts">';
+      h+='<p class="sentence">'+cs.map(function(c,n){var bt=G.checked&&w.optc?'<b class="'+w.optc[it.a]+'">':"<b>";return (n===it.tgt?bt+c.text+"</b>":c.text.replace(/<b>/g,bt))+c.punct;}).join(" ")+'</p><div class="opts">';
       w.opts.forEach(function(o,n){
         var cl="opt";if(G.checked){if(n===it.a)cl+=" hit";else if(n===G.picked)cl+=" wrong";}
-        h+='<button class="'+cl+'" data-o="'+n+'"'+(G.checked?" disabled":"")+'>'+o+'</button>';
+        h+='<button class="'+cl+'" data-o="'+n+'"'+(G.checked?" disabled":"")+'>'+(w.optc?'<i class="dot '+w.optc[n]+'"></i>':"")+o+'</button>';
       });
       h+='</div>';
       if(G.hint&&!G.checked)h+='<p class="hint small">'+w.trick+'</p>';
@@ -389,6 +419,11 @@ app.addEventListener("click",function(e){
   }
   else if(b.id==="start"){startRound(G.id);}
   else if(b.id==="again"){startRound(G.id);}
+  else if(b.id==="notes"){
+    G.notesOpen=!G.notesOpen;
+    b.parentNode.classList.toggle("open",G.notesOpen);
+    b.setAttribute("aria-expanded",String(G.notesOpen));
+  }
   else if(b.id==="hint"){G.hint=true;render();}
   else if(b.dataset.b){G.brush=b.dataset.b;render();}
   else if(b.dataset.c!==undefined){

@@ -21,10 +21,16 @@
      0 indicative, 1 interrogative, 2 imperative, 3 conditional, 4 subjunctive
 
    MISSIONS
-   For each mission: rule (the tip card), trick (the one-line reminder), ex (worked examples shown after a miss,
-   each one [sentence with <b>answer</b>, short note]).
-   To show a color in a rule or example, give the <b> a class: rs subject, rv verb, rp prepositional phrase,
-   rx verbal, rk connector, rn no color. Add "us" for a phrase inside a subject, e.g. <b class='rp us'>.
+   The review notes for each set. They show before a round and stay one tap away during it.
+     key    the color legend: [class, label]
+     rule   the key points
+     trick  the one-line reminder
+     ex     worked examples: [sentence, short note]. All of them show in the notes; two show after a miss.
+   Color a word by giving its <b> a class. Never leave a whole page in one color.
+     rs subject   rv verb   rp prepositional phrase   rx verbal or gerund   rk connector or coordinating   rn no color
+     ca participle, indicative        cb infinitive, conditional      cc passive
+     cd independent clause, imperative   ce subordinating, dependent clause, subjunctive
+   Add "us" for a phrase inside a subject, e.g. <b class='rp us'>.
 */
 window.CHUNK_HUNT_BANK = {
 
@@ -182,90 +188,199 @@ moods: [
 missions: {
 
 verb: {
+  key: [["rv","Verb"],["rs","Subject"],["rx","Verbal (not the verb)"],["rp","Prepositional phrase"]],
   rule: [
-    "A verb shows action (<i>ran</i>) or being (<i>is, was, will be</i>).",
-    "Helping verbs count too: <i>was built</i>, <i>has been barking</i>, <i>can change</i>.",
-    "<i>to + verb</i> (to learn) is NOT the verb of the sentence. An -ing word with no helper is not one either."
+    "A <b class='rv'>verb</b> shows action (<b class='rv'>ran</b>) or being (<b class='rv'>is</b>, <b class='rv'>was</b>, <b class='rv'>will be</b>).",
+    "Helping verbs are part of it: <b class='rv'>was built</b>, <b class='rv'>has been barking</b>, <b class='rv'>can change</b>, <b class='rv'>should have left</b>.",
+    "Each clause has its own verb. Two clauses, two verbs: <b class='rs'>The lights</b> <b class='rv'>dimmed</b>, <b class='rk'>and</b> <b class='rs'>the crowd</b> <b class='rv'>screamed</b>.",
+    "One subject can have two verbs: <b class='rs'>She</b> <b class='rv'>dribbled</b> <b class='rk'>and</b> <b class='rv'>scored</b>.",
+    "to + verb is never the verb: <b class='rs'>She</b> <b class='rv'>wants</b> <b class='rx'>to learn</b>.",
+    "An -ing word with no helper is not the verb: <b class='rs'>The girl</b> <b class='rx us'>wearing red</b> <b class='rv'>plays</b> goalie."
   ],
   trick: "Test it: put I, he or they in front. \"They succeed\" works. \"They to learn\" does not.",
   ex: [
-    ["Jimin <b>has been practicing</b> for hours.","Helpers + action count as one verb."],
-    ["She <b>wants</b> to sing.","\"to sing\" is to + verb, so it is not the verb."],
-    ["The tickets <b>were sold</b> in minutes.","were + sold work together."],
-    ["Dancing <b>is</b> hard.","Dancing is a thing here. The verb is \"is\"."],
-    ["The girl wearing eyeliner <b>plays</b> defense.","\"wearing\" has no helper, so it only describes her."]
+    ["<b class='rs'>My dog</b> <b class='rv'>has been barking</b> <b class='rp'>at the mail carrier</b> <b class='rp'>since noon</b>.","Two helpers + the action = one verb phrase."],
+    ["<b class='rs'>The tickets</b> <b class='rv'>were sold</b> <b class='rp'>in ten minutes</b>.","were + sold work together."],
+    ["<b class='rs'>Maya</b> <b class='rv'>wants</b> <b class='rx'>to learn</b> guitar.","\"to learn\" is to + verb, so it is not the verb."],
+    ["<b class='rs'>Dancing</b> <b class='rv'>is</b> hard work.","Dancing names a thing here. The verb is \"is\"."],
+    ["<b class='rs'>The fans</b> <b class='rx us'>waiting outside</b> <b class='rv'>were given</b> posters.","\"waiting\" has no helper. It only describes the fans."],
+    ["<b class='rk'>When</b> <b class='rs'>the lights</b> <b class='rv'>dimmed</b>, <b class='rs'>the fans</b> <b class='rv'>began</b> <b class='rx'>to scream</b>.","Two clauses, two verbs. \"to scream\" is not one of them."],
+    ["<b class='rs'>The designer</b> <b class='rv'>did</b> not <b class='rv'>expect</b> so many orders.","\"did expect\" is the verb. \"not\" sits in the middle but is not part of it."],
+    ["<b class='rs'>Olivia</b> <b class='rv'>plays</b> guitar <b class='rk'>and</b> <b class='rv'>writes</b> her own songs.","One subject, two verbs."],
+    ["<b class='rs'>We</b> <b class='rv'>should have left</b> earlier <b class='rx'>to beat</b> the traffic.","Three words, one verb phrase."],
+    ["<b class='rs'>She</b> <b class='rv'>is</b> good <b class='rp'>at dribbling</b>.","\"dribbling\" follows a preposition, so it is not the verb."]
   ]
 },
 
 subj: {
+  key: [["rs","Subject"],["rv","Verb"],["rp","Prepositional phrase"],["rx","Verbal"],["rk","Connector"]],
   rule: [
-    "Find the verb first. Then ask: <i>who or what</i> did it?",
-    "The complete subject is that noun PLUS every word describing it.",
-    "Each clause has its own subject, so one sentence can have two or three.",
-    "Opening phrases like <i>After lunch,</i> are not part of the subject."
+    "Find the <b class='rv'>verb</b> first. Then ask: who or what did it? That is the <b class='rs'>subject</b>.",
+    "The complete subject is the noun plus every word that describes it: <b class='rs'>The girl</b> <b class='rp us'>with the red backpack</b> <b class='rv'>won</b>.",
+    "A describing phrase stays with the subject: <b class='rs'>The player</b> <b class='rx us'>dribbling the ball</b> <b class='rv'>is</b> our captain.",
+    "Each clause has its own subject: <b class='rs'>The goalie</b> <b class='rv'>dove</b>, <b class='rk'>and</b> <b class='rs'>the ball</b> <b class='rv'>missed</b>.",
+    "An opening phrase is not the subject: <b class='rp'>After lunch</b>, <b class='rs'>my brother</b> <b class='rv'>fell</b> asleep.",
+    "An -ing word can be the subject: <b class='rs'>Thrifting</b> <b class='rv'>saves</b> money."
   ],
-  trick: "\"The paths leading to the hilltops were steep.\" What were steep? All of \"the paths leading to the hilltops\".",
+  trick: "\"The paths leading to the hilltops were steep.\" What were steep? All of \"the paths leading to the hilltops\". A phrase inside a subject keeps its own color and gets the subject underline.",
   ex: [
-    ["<b>The fans in the front row</b> screamed.","Who screamed? The whole group of words."],
-    ["After the show, <b>the band</b> left.","The opening phrase tells when. It is not the subject."],
-    ["<b>The goalie</b> dove, and <b>the ball</b> missed.","Two clauses, so two subjects."],
-    ["<b>The girl wearing eyeliner</b> is my cousin.","\"wearing eyeliner\" tells which girl, so it belongs."],
-    ["When the lights dimmed, <b>tickets to the show</b> were scanned.","What were scanned? Not just \"tickets\"."]
+    ["<b class='rs'>The fans</b> <b class='rp us'>in the front row</b> <b class='rv'>screamed</b>.","Who screamed? The whole group of words."],
+    ["<b class='rp'>After the show</b>, <b class='rs'>the band</b> <b class='rv'>left</b>.","The opening phrase tells when. It is not the subject."],
+    ["<b class='rs'>The goalie</b> <b class='rv'>dove</b>, <b class='rk'>and</b> <b class='rs'>the ball</b> <b class='rv'>missed</b>.","Two clauses, two subjects."],
+    ["<b class='rs'>The girl</b> <b class='rx us'>wearing eyeliner</b> <b class='rv'>is</b> my cousin.","\"wearing eyeliner\" tells which girl, so it belongs."],
+    ["<b class='rk'>Once</b> <b class='rs'>roads</b> <b class='rv'>were built</b>, <b class='rs'>access</b> <b class='rp us'>to the heights</b> <b class='rv'>was</b> easy.","What was easy? \"access to the heights\", not just \"access\"."],
+    ["<b class='rs'>Three</b> <b class='rp us'>of my friends</b> <b class='rv'>are coming</b>.","Who are coming? \"Three of my friends\"."],
+    ["<b class='rk'>When</b> <b class='rs'>the bell</b> <b class='rv'>rang</b>, <b class='rs'>the students</b> <b class='rp us'>in the hallway</b> <b class='rv'>ran</b>.","The first clause has a subject too."],
+    ["<b class='rs'>Blending eyeshadow</b> <b class='rv'>takes</b> practice.","The whole -ing phrase is the subject."],
+    ["<b class='rs'>My friends and I</b> <b class='rv'>made</b> bracelets.","Two people, one complete subject."],
+    ["<b class='rp'>On Friday</b>, <b class='rs'>the seven members</b> <b class='rp us'>of BTS</b> <b class='rv'>arrived</b>.","\"of BTS\" tells which members."]
   ]
 },
 
 prep: {
+  key: [["rp","Prepositional phrase"],["rx","Infinitive (does not count)"],["rs","Subject"],["rv","Verb"]],
   rule: [
-    "It starts with a preposition (<i>in, on, at, for, with, by, to, as, after, under</i>...) and ends with a noun.",
-    "<i>to + noun</i> is a prepositional phrase: <i>to school</i>.",
-    "<i>to + verb</i> is an infinitive, not a prepositional phrase: <i>to meet</i>.",
-    "Short ones are easy to miss: <i>for use</i>, <i>as a joke</i>, <i>by hand</i>."
+    "A <b class='rp'>prepositional phrase</b> starts with a preposition and ends with a noun: <b class='rp'>in the rain</b>, <b class='rp'>after the game</b>, <b class='rp'>with my cousins</b>.",
+    "Common prepositions: in, on, at, for, with, by, to, from, of, as, after, before, during, under, over, behind, between, through, without, until.",
+    "to + noun is a prepositional phrase: <b class='rp'>to school</b>. to + verb is an infinitive: <b class='rx'>to meet</b>.",
+    "Short ones are easy to miss: <b class='rp'>for use</b>, <b class='rp'>as a joke</b>, <b class='rp'>by hand</b>, <b class='rp'>at first</b>.",
+    "Phrases can come in a row: <b class='rp'>from the top</b> <b class='rp'>of the circle</b>.",
+    "A word like out, up or along with no noun after it is not a phrase: The lights went out."
   ],
-  trick: "Look at the word after \"to\". A thing or place? Prepositional phrase. An action? Skip it.",
+  trick: "Look at the word after \"to\". A thing or a place? Prepositional phrase. An action? Skip it.",
   ex: [
-    ["She ran <b>to the field</b> to play.","to + place counts. to + verb does not."],
-    ["We waited <b>in line</b> <b>for hours</b>.","Two short phrases, both count."],
-    ["<b>As a fan</b>, I cried <b>at the concert</b>.","\"As\" can be a preposition."],
-    ["It was made <b>by hand</b> <b>for use</b> <b>on stage</b>.","Two-word phrases are easy to skip."],
-    ["She is great <b>at dribbling</b>.","An -ing word can come after a preposition."]
+    ["<b class='rs'>She</b> <b class='rv'>ran</b> <b class='rp'>to the field</b> <b class='rx'>to play</b>.","to + place counts. to + verb does not."],
+    ["<b class='rs'>We</b> <b class='rv'>waited</b> <b class='rp'>in line</b> <b class='rp'>for hours</b>.","Two short phrases, both count."],
+    ["<b class='rp'>As a fan</b>, <b class='rs'>I</b> <b class='rv'>cried</b> <b class='rp'>at the concert</b>.","\"As\" can be a preposition."],
+    ["<b class='rs'>It</b> <b class='rv'>was made</b> <b class='rp'>by hand</b> <b class='rp'>for use</b> <b class='rp'>on stage</b>.","Two-word phrases are the easiest to skip."],
+    ["<b class='rs'>She</b> <b class='rv'>is</b> great <b class='rp'>at dribbling</b>.","An -ing word can follow a preposition."],
+    ["<b class='rs'>The ball</b> <b class='rv'>flew</b> <b class='rp'>over the goalie</b> <b class='rk'>and</b> <b class='rp'>into the net</b>.","\"and\" joins two phrases."],
+    ["<b class='rs'>We</b> <b class='rv'>have</b> <b class='rx'>to leave</b> <b class='rp'>by noon</b> <b class='rx'>to get</b> good seats.","Two infinitives to skip. Only \"by noon\" counts."],
+    ["<b class='rs'>The song</b> <b class='rp us'>on the radio</b> <b class='rv'>was written</b> <b class='rp'>by a teenager</b>.","A phrase inside the subject still counts."],
+    ["<b class='rs'>They</b> <b class='rv'>came</b> <b class='rx'>to watch</b> the ceremonies <b class='rp'>in the spring</b>.","\"to watch\" is an infinitive."],
+    ["<b class='rs'>The crowd</b> <b class='rv'>sang</b> along <b class='rp'>until midnight</b>.","\"along\" has no noun after it."]
   ]
 },
 
 verbal: {
+  key: [["rx","Gerund"],["ca","Participle"],["cb","Infinitive"],["rp","Prepositional phrase"]],
   rule: [
     "A verbal looks like a verb but does a different job.",
-    "Gerund: -ing word used as a <b>noun</b>. <i>Running is fun.</i>",
-    "Participle: -ing or -ed word used as an <b>adjective</b>. <i>the running water</i>",
-    "Infinitive: <b>to + verb</b>. <i>to run</i>"
+    "<b class='rx'>Gerund</b>: an -ing word used as a noun. <b class='rx'>Running</b> is fun. She loves <b class='rx'>baking</b>.",
+    "<b class='ca'>Participle</b>: an -ing or -ed word used as an adjective. The <b class='ca'>running</b> water, the <b class='ca'>baked</b> cookies, the girl <b class='ca'>wearing red</b>.",
+    "<b class='cb'>Infinitive</b>: to + verb. She wants <b class='cb'>to sing</b>. <b class='cb'>To win</b> was her dream.",
+    "<b class='rp'>Prepositional phrase</b>: to + noun. She walked <b class='rp'>to the stage</b>."
   ],
-  trick: "Swap in \"it\". \"It is hard work\" works, so Dancing is a gerund. \"The it fans\" fails, so dancing is a participle.",
+  trick: "Swap in \"it\". \"It is fun\" works, so Running is a gerund. \"The it water\" fails, so running is a participle.",
   ex: [
-    ["<b>Singing</b> is fun.","Gerund: it names a thing."],
-    ["The <b>singing</b> crowd was loud.","Participle: it describes the crowd."],
-    ["She wants <b>to sing</b>.","Infinitive: to + verb."],
-    ["She walked <b>to the stage</b>.","Prepositional phrase: to + place."],
-    ["The <b>painted</b> nails matched her dress.","Participle: -ed word describing nails."]
+    ["<b class='rx'>Singing</b> is fun.","It names a thing. Gerund."],
+    ["The <b class='ca'>singing</b> crowd was loud.","It describes the crowd. Participle."],
+    ["She wants <b class='cb'>to sing</b>.","to + verb. Infinitive."],
+    ["She walked <b class='rp'>to the stage</b>.","to + place. Prepositional phrase."],
+    ["She practices <b class='rx'>dribbling</b> every morning.","What does she practice? A thing. Gerund."],
+    ["The <b class='ca'>smudged</b> eyeliner looked cool.","An -ed word describing eyeliner. Participle."],
+    ["The fans <b class='ca'>waiting outside</b> were cold.","The whole phrase describes the fans. Participle."],
+    ["<b class='cb'>To make</b> the team, she trained daily.","to + verb, even at the start. Infinitive."],
+    ["<b class='rx'>Thrifting</b> saves money.","The subject is a thing. Gerund."],
+    ["I gave my ticket <b class='rp'>to my cousin</b>.","to + person. Prepositional phrase."]
   ]
 },
 
 voice: {
+  key: [["rv","Active verb"],["cc","Passive verb"],["rs","Subject"],["rp","Prepositional phrase"]],
   rule: [
-    "Active: the subject DOES the action. <i>Sam kicked the ball.</i>",
-    "Passive: the subject RECEIVES the action. <i>The ball was kicked.</i>",
-    "Passive = a form of <i>be</i> + past participle (<i>was kicked, is inhabited, were made</i>).",
-    "<i>was sleeping</i> and <i>has won</i> are still active."
+    "<b class='rv'>Active</b>: the subject does the action. <b class='rs'>Sam</b> <b class='rv'>kicked</b> the ball.",
+    "<b class='cc'>Passive</b>: the subject receives the action. <b class='rs'>The ball</b> <b class='cc'>was kicked</b>.",
+    "Passive = a form of be + past participle: <b class='cc'>was kicked</b>, <b class='cc'>is inhabited</b>, <b class='cc'>were made</b>, <b class='cc'>has been sold</b>.",
+    "be + -ing is still active: <b class='rs'>She</b> <b class='rv'>was sleeping</b>.",
+    "have + past participle is still active: <b class='rs'>The team</b> <b class='rv'>has won</b>."
   ],
   trick: "Add \"by zombies\" after the verb. If it makes sense, it is passive: \"The ball was kicked by zombies.\"",
   ex: [
-    ["Fans <b>bought</b> the tickets.","Active: the fans did it."],
-    ["The tickets <b>were bought</b> by fans.","Passive: the tickets received the action."],
-    ["She <b>was singing</b>.","Active: was + -ing is still her doing it."],
-    ["The song <b>was sung</b> by RM.","Passive: was + past participle."],
-    ["The team <b>has scored</b> twice.","Active: has + scored, and the team did it."]
+    ["<b class='rs'>Fans</b> <b class='rv'>bought</b> the tickets.","The fans did it. Active."],
+    ["<b class='rs'>The tickets</b> <b class='cc'>were bought</b> <b class='rp'>by fans</b>.","The tickets received the action. Passive."],
+    ["<b class='rs'>She</b> <b class='rv'>was singing</b>.","was + -ing. She is doing it. Active."],
+    ["<b class='rs'>The song</b> <b class='cc'>was sung</b> <b class='rp'>by RM</b>.","was + past participle. Passive."],
+    ["<b class='rs'>The team</b> <b class='rv'>has scored</b> twice.","has + scored, and the team did it. Active."],
+    ["<b class='rs'>Mistakes</b> <b class='cc'>were made</b>.","It does not say who made them. Still passive."],
+    ["<b class='rs'>The album</b> <b class='cc'>was released</b> <b class='rp'>in March</b>.","The album did not release itself. Passive."],
+    ["<b class='rs'>BTS</b> <b class='rv'>released</b> an album <b class='rp'>in March</b>.","BTS did the releasing. Active."],
+    ["<b class='rs'>The stadium</b> <b class='cc'>was filled</b> <b class='rp'>with fans</b>.","was + filled. Passive."],
+    ["<b class='rs'>The coach</b> <b class='rv'>is planning</b> a new drill.","is + -ing. Active."]
+  ]
+},
+
+conj: {
+  key: [["rk","Coordinating"],["ce","Subordinating"]],
+  rule: [
+    "A conjunction joins words or clauses.",
+    "<b class='rk'>Coordinating</b>: <b class='rk'>for</b>, <b class='rk'>and</b>, <b class='rk'>nor</b>, <b class='rk'>but</b>, <b class='rk'>or</b>, <b class='rk'>yet</b>, <b class='rk'>so</b>. Remember FANBOYS. They join two equal parts.",
+    "<b class='ce'>Subordinating</b>: <b class='ce'>when</b>, <b class='ce'>because</b>, <b class='ce'>although</b>, <b class='ce'>if</b>, <b class='ce'>while</b>, <b class='ce'>until</b>, <b class='ce'>once</b>, <b class='ce'>after</b>, <b class='ce'>before</b>, <b class='ce'>that</b>, <b class='ce'>so that</b>.",
+    "A subordinating word starts a clause that cannot stand alone: <b class='ce'>because</b> the crowd cheered."
+  ],
+  trick: "FANBOYS = coordinating. Any other word that starts a clause is subordinating.",
+  ex: [
+    ["She sang, <b class='rk'>and</b> the crowd cheered.","and is one of the FANBOYS. Coordinating."],
+    ["She sang <b class='ce'>because</b> the crowd cheered.","\"because the crowd cheered\" cannot stand alone. Subordinating."],
+    ["<b class='ce'>Although</b> it rained, we played.","Subordinating, even at the start of the sentence."],
+    ["We ran, <b class='rk'>so</b> we made the bus.","so is one of the FANBOYS. Coordinating."],
+    ["We ran <b class='ce'>so that</b> we would make the bus.","Two words, and subordinating."],
+    ["The song is short, <b class='rk'>yet</b> it stayed at number one.","yet is one of the FANBOYS. Coordinating."],
+    ["I screamed <b class='ce'>when</b> I opened the card.","\"when I opened the card\" cannot stand alone."],
+    ["The coach believes <b class='ce'>that</b> practice matters.","\"that\" starts a clause here. Subordinating."]
+  ]
+},
+
+stype: {
+  key: [["cd","Independent clause"],["ce","Dependent clause"]],
+  rule: [
+    "Count the clauses. A clause has its own subject and its own verb.",
+    "An <b class='cd'>independent clause</b> can stand alone. A <b class='ce'>dependent clause</b> starts with a word like when, because, although, if, that.",
+    "<b>Simple</b>: one <b class='cd'>independent clause</b>.",
+    "<b>Compound</b>: two or more <b class='cd'>independent clauses</b>, joined by FANBOYS or a semicolon.",
+    "<b>Complex</b>: one <b class='cd'>independent clause</b> + at least one <b class='ce'>dependent clause</b>.",
+    "<b>Compound-complex</b>: two or more <b class='cd'>independent clauses</b> + at least one <b class='ce'>dependent clause</b>."
+  ],
+  trick: "One subject doing two things (She ran and jumped) is still one clause. Count the subjects, not the verbs.",
+  ex: [
+    ["<b class='cd'>The goalie dove and blocked the shot.</b>","One subject, two verbs, one clause. Simple."],
+    ["<b class='cd'>The goalie dove,</b> and <b class='cd'>the crowd cheered.</b>","Two independent clauses. Compound."],
+    ["<b class='ce'>When the goalie dove,</b> <b class='cd'>the crowd cheered.</b>","One dependent + one independent. Complex."],
+    ["<b class='ce'>When the goalie dove,</b> <b class='cd'>the crowd cheered,</b> and <b class='cd'>the coach smiled.</b>","One dependent + two independent. Compound-complex."],
+    ["<b class='cd'>The tickets sold out;</b> <b class='cd'>we watched online.</b>","A semicolon joins two independent clauses. Compound."],
+    ["<b class='cd'>She kept the eyeliner</b> <b class='ce'>because it matched her outfit.</b>","The dependent clause can come second. Complex."],
+    ["<b class='cd'>To make the team, she practiced every day after school.</b>","Long, but only one subject and one verb. Simple."],
+    ["<b class='cd'>The band played</b> <b class='ce'>until the lights came on,</b> but <b class='cd'>nobody left.</b>","Two independent + one dependent. Compound-complex."]
+  ]
+},
+
+mood: {
+  key: [["ca","Indicative"],["rk","Interrogative"],["cd","Imperative"],["cb","Conditional"],["ce","Subjunctive"]],
+  rule: [
+    "Mood shows what the speaker is doing with the verb.",
+    "<b class='ca'>Indicative</b> states a fact or opinion: She <b class='ca'>plays</b> defense.",
+    "<b class='rk'>Interrogative</b> asks a question: <b class='rk'>Does</b> she <b class='rk'>play</b> defense?",
+    "<b class='cd'>Imperative</b> gives a command. The subject \"you\" is hidden: <b class='cd'>Pass</b> the ball.",
+    "<b class='cb'>Conditional</b> says what would or could happen: She <b class='cb'>would play</b> if she had a stick.",
+    "<b class='ce'>Subjunctive</b> is a wish, a demand, or something contrary to fact: I wish I <b class='ce'>were</b> taller. The coach asked that she <b class='ce'>be</b> on time."
+  ],
+  trick: "\"If I were\", \"I wish she were\" and \"that he be\" are subjunctive. Would, could and might point to conditional.",
+  ex: [
+    ["If I <b class='ce'>were</b> a singer, I <b class='cb'>would tour</b> the world.","\"were\" after I is contrary to fact: subjunctive. \"would tour\" is conditional."],
+    ["<b class='cd'>Bring</b> your ticket.","A command with a hidden \"you\". Imperative."],
+    ["The coach insists that she <b class='ce'>arrive</b> early.","A demand, and no -s on the verb. Subjunctive."],
+    ["She <b class='ca'>arrives</b> early every day.","A plain fact. Indicative."],
+    ["<b class='rk'>Did</b> the band <b class='rk'>play</b> an encore?","A question. Interrogative."],
+    ["We <b class='cb'>could win</b> with a better defense.","could + verb: it depends on something. Conditional."],
+    ["I wish the concert <b class='ce'>were</b> tonight.","A wish. Subjunctive."],
+    ["Never <b class='cd'>leave</b> your brushes dirty.","Still a command. Imperative."],
+    ["The concert <b class='ca'>was</b> loud.","An opinion stated as a fact. Indicative."],
+    ["It is important that he <b class='ce'>be</b> ready.","\"be\" instead of \"is\". Subjunctive."]
   ]
 },
 
 paint: {
+  key: [["rs","Subject"],["rv","Verb"],["rp","Prepositional phrase"],["rx","Verbal"],["rk","Connector"],["rn","No color"]],
   rule: [
     "Go in this order, one color at a time.",
     "<b class='rv'>Verbs</b> first. Each clause has one: <b class='rv'>shook</b>, <b class='rv'>was sold</b>.",
@@ -281,60 +396,11 @@ paint: {
     ["<b class='rs'>The fans</b> <b class='rp us'>in line</b> <b class='rv'>waited</b>.","\"in line\" is part of the subject and also a prepositional phrase."],
     ["<b class='rs'>She</b> <b class='rv'>stopped</b> <b class='rx'>to rest</b>.","to + verb is a verbal, not a prepositional phrase."],
     ["<b class='rs'>The girl</b> <b class='rx us'>wearing red</b> <b class='rv'>scored</b>.","\"wearing red\" describes the girl. Verbal."],
-    ["<b class='rs'>They</b> <b class='rv'>left</b> <b class='rk'>when</b> <b class='rs'>it</b> <b class='rv'>rained</b>.","when, and, but are connectors."]
-  ]
-},
-
-conj: {
-  rule: [
-    "A conjunction joins words or clauses.",
-    "<b class='rk'>Coordinating</b>: for, and, nor, but, or, yet, so. Remember them as FANBOYS. They join two equal parts.",
-    "<b class='rk'>Subordinating</b>: when, because, although, if, while, until, once, after, before, that, so that. They start a clause that cannot stand alone."
-  ],
-  trick: "FANBOYS = coordinating. Any other word that starts a clause is subordinating.",
-  ex: [
-    ["She sang, <b class='rk'>and</b> the crowd cheered.","and is one of the FANBOYS: coordinating."],
-    ["She sang <b class='rk'>because</b> the crowd cheered.","\"because the crowd cheered\" cannot stand alone: subordinating."],
-    ["<b class='rk'>Although</b> it rained, we played.","Subordinating, even at the start of the sentence."],
-    ["We ran, <b class='rk'>so</b> we made the bus.","so is one of the FANBOYS: coordinating."],
-    ["We ran <b class='rk'>so that</b> we would make the bus.","\"so that\" is two words and it is subordinating."]
-  ]
-},
-
-stype: {
-  rule: [
-    "Count the clauses. A clause has its own subject and its own verb.",
-    "An <b>independent</b> clause can stand alone. A <b>dependent</b> clause starts with a word like when, because, although, if, that.",
-    "<b>Simple</b>: 1 independent clause.",
-    "<b>Compound</b>: 2 or more independent clauses, joined by FANBOYS or a semicolon.",
-    "<b>Complex</b>: 1 independent clause + at least 1 dependent clause.",
-    "<b>Compound-complex</b>: 2 or more independent clauses + at least 1 dependent clause."
-  ],
-  trick: "One subject doing two things (She ran and jumped) is still one clause. Count the subjects, not the verbs.",
-  ex: [
-    ["The goalie dove <b>and</b> blocked the shot.","One subject, two verbs. Simple."],
-    ["The goalie dove, <b>and</b> the crowd cheered.","Two subjects, two independent clauses. Compound."],
-    ["<b>When</b> the goalie dove, the crowd cheered.","One dependent clause + one independent clause. Complex."],
-    ["<b>When</b> the goalie dove, the crowd cheered, <b>and</b> the coach smiled.","One dependent + two independent. Compound-complex."]
-  ]
-},
-
-mood: {
-  rule: [
-    "Mood shows what the speaker is doing with the verb.",
-    "<b>Indicative</b> states a fact or opinion: <i>She plays defense.</i>",
-    "<b>Interrogative</b> asks a question: <i>Does she play defense?</i>",
-    "<b>Imperative</b> gives a command. The subject \"you\" is hidden: <i>Pass the ball.</i>",
-    "<b>Conditional</b> says what would or could happen: <i>She would play if she had a stick.</i>",
-    "<b>Subjunctive</b> is a wish, a demand, or something contrary to fact: <i>I wish I were taller. The coach asked that she be on time.</i>"
-  ],
-  trick: "\"If I were\", \"I wish she were\" and \"that he be\" are subjunctive. Would, could and might point to conditional.",
-  ex: [
-    ["If I <b>were</b> a singer, I would tour the world.","\"were\" after I: contrary to fact. Subjunctive."],
-    ["If I were a singer, I <b>would tour</b> the world.","would + verb: what could happen. Conditional."],
-    ["<b>Bring</b> your ticket.","A command with a hidden \"you\". Imperative."],
-    ["The coach insists that she <b>arrive</b> early.","A demand, and no -s on the verb. Subjunctive."],
-    ["She <b>arrives</b> early every day.","A plain fact. Indicative."]
+    ["<b class='rs'>They</b> <b class='rv'>left</b> <b class='rk'>when</b> <b class='rs'>it</b> <b class='rv'>rained</b>.","when, and, but are connectors."],
+    ["<b class='rk'>When</b> <b class='rs'>the lights</b> <b class='rv'>dimmed</b>, <b class='rs'>the fans</b> <b class='rv'>began</b> <b class='rx'>to scream</b>.","Connector first, then two clauses."],
+    ["<b class='rs'>The dress</b> <b class='rx us'>covered in mirrors</b> <b class='rv'>was sewn</b> <b class='rp'>by hand</b>.","A describing phrase inside the subject."],
+    ["<b class='rs'>Thrifting</b> <b class='rv'>saves</b> money <b class='rk'>and</b> <b class='rv'>keeps</b> clothes <b class='rp'>out of landfills</b>.","One subject, two verbs."],
+    ["<b class='rp'>Before the show</b>, <b class='rs'>she</b> <b class='rv'>walked</b> <b class='rp'>to the stage</b> <b class='rx'>to check</b> the sound.","to + place is a phrase. to + verb is a verbal."]
   ]
 }
 }
