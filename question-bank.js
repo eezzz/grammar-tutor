@@ -18,6 +18,8 @@
    MISSIONS
    For each mission: rule (the tip card), trick (the one-line reminder), ex (worked examples shown after a miss,
    each one [sentence with <b>answer</b>, short note]).
+   To show a color in a rule or example, give the <b> a class: rs subject, rv verb, rp prepositional phrase,
+   rx verbal, rn no color. Add "us" for a phrase inside a subject, e.g. <b class='rp us'>.
 */
 window.CHUNK_HUNT_BANK = {
 
@@ -188,18 +190,19 @@ voice: {
 paint: {
   rule: [
     "Go in this order, one color at a time.",
-    "<b>Verbs</b> first. Each clause has one.",
-    "<b>Subjects</b> next: who or what does each verb? Take every word that describes it.",
-    "<b>Prepositional phrases</b>: preposition + noun.",
-    "<b>Verbals</b>: to + verb, or an -ing / -ed word that is not working as the verb.",
-    "Leave the rest blank: objects, and, but, when, because."
+    "<b class='rv'>Verbs</b> first. Each clause has one: <b class='rv'>shook</b>, <b class='rv'>was sold</b>.",
+    "<b class='rs'>Subjects</b> next: who or what does each verb? Take every word that describes it: <b class='rs'>the players</b>.",
+    "<b class='rp'>Prepositional phrases</b>: preposition + noun: <b class='rp'>after the game</b>, <b class='rp'>to the bus</b>.",
+    "<b class='rx'>Verbals</b>: to + verb, or an -ing / -ed word that is not working as the verb: <b class='rx'>to rest</b>, <b class='rx'>wearing red</b>.",
+    "<b class='rn'>No color</b> for the rest: objects, and, but, when, because.",
+    "All together: <b class='rp'>After the game,</b> <b class='rs'>the players</b> <b class='rp us'>on both teams</b> <b class='rv'>shook</b> hands and <b class='rv'>went</b> <b class='rp'>to the bus</b> <b class='rx'>to rest</b>."
   ],
   trick: "A phrase inside a subject, like \"on both teams\", can be the subject color or the phrase color. Both count.",
   ex: [
-    ["<b>The fans</b> <b>in line</b> waited.","\"in line\" is part of the subject and also a prepositional phrase."],
-    ["She stopped <b>to rest</b>.","to + verb is a verbal, not a prepositional phrase."],
-    ["The girl <b>wearing red</b> scored.","\"wearing red\" describes the girl. Verbal."],
-    ["They left <b>when</b> it rained.","Words like when, and, but get no color."]
+    ["<b class='rs'>The fans</b> <b class='rp us'>in line</b> <b class='rv'>waited</b>.","\"in line\" is part of the subject and also a prepositional phrase."],
+    ["<b class='rs'>She</b> <b class='rv'>stopped</b> <b class='rx'>to rest</b>.","to + verb is a verbal, not a prepositional phrase."],
+    ["<b class='rs'>The girl</b> <b class='rx us'>wearing red</b> <b class='rv'>scored</b>.","\"wearing red\" describes the girl. Verbal."],
+    ["<b class='rs'>They</b> <b class='rv'>left</b> <b class='rn'>when</b> <b class='rs'>it</b> <b class='rv'>rained</b>.","Words like when, and, but get no color."]
   ]
 }
 }

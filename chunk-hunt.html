@@ -103,6 +103,20 @@ button:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .brush.erase{background:none;border-color:var(--line);color:var(--ink)}
 .brush.on{border-color:var(--ink)}
 .sentence.long{font-size:1.1rem}
+.panel b.rs,.panel b.rv,.panel b.rp,.panel b.rx,.panel b.rn{padding:1px 6px;border-radius:6px;color:var(--on-mark);font-weight:700}
+.panel b.rs{background:var(--m-subj)}
+.panel b.rv{background:var(--m-verb)}
+.panel b.rp{background:var(--m-prep)}
+.panel b.rx{background:var(--m-verbal)}
+.panel b.rn{background:none;color:var(--ink);border:2px dashed var(--line)}
+.panel b.us{border-bottom:5px solid var(--m-subj)}
+.rule li:has(b.rs){border-left-color:var(--m-subj)}
+.rule li:has(b.rv){border-left-color:var(--m-verb)}
+.rule li:has(b.rp){border-left-color:var(--m-prep)}
+.rule li:has(b.rx){border-left-color:var(--m-verbal)}
+.rule li:has(b.rn){border-left-color:var(--line)}
+.rule li:has(b.rv):has(b.rs){border-left-color:var(--ink)}
+.rule li{line-height:2}
 .hint{border-left:6px solid var(--mk);padding-left:12px}
 .big{font-family:var(--display);font-size:3rem;letter-spacing:.1em;line-height:1}
 .big i{font-style:normal;color:var(--line)}
