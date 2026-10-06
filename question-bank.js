@@ -40,7 +40,13 @@ sentences: [
 "c:When|s:the referee|v:raised|o:her arm,|s:the crowd|sp:behind our bench|v:groaned,|c:but|s:the penalty|V:was given|p:to the other team.",
 "i:To earn a starting spot,|s:the youngest player|sp:on the roster|v:practiced|g:hitting|p:against the garage door|p:until dark.",
 "s:The championship game|V:was moved|p:to Saturday|c:because|s:the field|sp:behind the gym|V:was flooded|p:by the storm.",
-"p:After three overtime periods,|s:the exhausted players|v:walked|p:to the bus|p:in silence,|c:yet|s:nobody|v:wanted|i:to leave|o:the field."
+"p:After three overtime periods,|s:the exhausted players|v:walked|p:to the bus|p:in silence,|c:yet|s:nobody|v:wanted|i:to leave|o:the field.",
+"p:On the first day|p:of tryouts,|s:forty girls|v:gathered|p:on the turf,|c:but|s:only eighteen|V:were chosen|p:for the team.",
+"s:The defender|sa:marking their best scorer|v:stayed|p:beside her|p:for the whole game|c:and|v:refused|i:to give|o:her|o:any space.",
+"c:Because|s:the bus|v:broke down|p:on the highway,|s:our team|v:arrived|p:at the tournament|p:with five minutes|i:to warm up.",
+"sg:Winning the first game|v:gave|o:us|o:confidence,|c:but|s:the second match|sp:against the defending champions|v:tested|o:every player|p:on the field.",
+"c:After|s:the ball|v:hit|o:the post,|s:it|v:bounced|p:across the goal line|c:and|V:was cleared|p:by a diving defender.",
+"s:The captain|v:gathered|o:the team|p:in a circle|p:at halftime|i:to remind|o:everyone|c:that|s:one goal|v:could change|o:the game."
 ]},
 
 { topic: "Music and concerts", items: [
@@ -63,7 +69,13 @@ sentences: [
 "c:Because|s:the concert|V:was filmed|p:for a documentary,|s:cameras|sp:on long cranes|v:floated|p:above the crowd|p:throughout the night.",
 "s:My cousin|v:waited|p:in line|p:for six hours|i:to buy|o:a tour poster,|c:but|s:the last one|V:was sold|p:to the girl|p:in front of her.",
 "c:After|s:the band|v:finished|g:rehearsing,|s:the dancers|v:stayed|p:on stage|i:to practice|o:the hardest part|p:of the routine.",
-"s:The song|sa:playing on the radio|v:reminded|o:me|p:of last summer,|c:so|s:I|v:texted|o:the title|p:to my best friend."
+"s:The song|sa:playing on the radio|v:reminded|o:me|p:of last summer,|c:so|s:I|v:texted|o:the title|p:to my best friend.",
+"p:At the soundcheck,|s:the guitarist|v:noticed|c:that|s:one amplifier|v:was buzzing,|c:so|s:a technician|v:replaced|o:it|p:within minutes.",
+"s:The setlist|sa:taped to the stage floor|V:was photographed|p:by a fan|p:in the front row,|c:and|s:the picture|v:spread|p:across the internet|p:in an hour.",
+"c:While|s:the choir|v:was rehearsing|p:in the auditorium,|s:the band|v:practiced|p:in the hallway|i:to stay|o:warm|p:before the concert.",
+"sg:Learning Korean|sp:through song lyrics|v:has helped|o:my friend,|c:and|s:she|v:understands|o:most interviews|p:without subtitles.",
+"s:The drummer|v:counted|p:to four,|s:the lights|v:flashed,|c:and|s:the first chord|V:was played|p:by three guitars|p:at once.",
+"i:To surprise the audience,|s:the singer|v:appeared|p:at the back|p:of the arena|c:and|v:walked|p:through the crowd|p:toward the stage."
 ]},
 
 { topic: "Fashion", items: [
@@ -75,7 +87,15 @@ sentences: [
 "c:Although|s:vintage jeans|v:can be|o:expensive,|s:shoppers|sp:with patience|v:find|o:bargains|p:at garage sales.",
 "s:The designer|v:sketched|o:forty outfits|p:in one week;|s:only twelve|sp:of them|V:were chosen|p:for the runway show.",
 "c:When|s:the zipper|v:broke|p:before the show,|s:the model|sa:wearing the final gown|V:was sewn|p:into it|p:by two assistants.",
-"s:Thrift stores|sp:near college campuses|v:receive|o:donations|p:in May,|c:so|s:smart shoppers|v:plan|i:to visit|o:them|p:at the end|p:of the school year."
+"s:Thrift stores|sp:near college campuses|v:receive|o:donations|p:in May,|c:so|s:smart shoppers|v:plan|i:to visit|o:them|p:at the end|p:of the school year.",
+"p:At the spring fashion show,|s:the youngest designer|v:presented|o:a jacket|a:made from recycled denim,|c:and|s:the judges|v:gave|o:her|o:first prize.",
+"c:Because|s:the fabric|V:was dyed|p:by hand,|s:each scarf|sp:in the collection|v:has|o:a slightly different shade|p:of blue.",
+"sg:Sewing a straight seam|v:sounds|o:simple,|c:but|s:most beginners|v:practice|p:on scrap fabric|p:for weeks|c:before|s:they|v:cut|o:real cloth.",
+"s:The sneakers|sa:displayed in the front window|V:were released|p:in limited numbers,|c:so|s:collectors|v:lined up|p:outside the store|p:before sunrise.",
+"c:When|s:my aunt|v:cleaned|o:her closet,|s:she|v:gave|o:me|o:a leather bag|p:from the 1980s|c:and|v:told|o:me|i:to take|o:good care|p:of it.",
+"p:In the costume shop,|s:rows|sp:of sequined jackets|v:hung|p:beside racks|p:of feathered hats,|c:and|s:every piece|V:was labeled|p:with a performer's name.",
+"i:To save money,|s:the drama club|v:borrowed|o:costumes|p:from another school|c:and|v:returned|o:them|p:after the final show.",
+"s:The runway|V:was lit|p:from below,|c:so|s:the models|sa:walking in silver boots|v:seemed|i:to float|p:above the floor."
 ]},
 
 { topic: "Makeup", items: [
@@ -84,7 +104,13 @@ sentences: [
 "p:Without a mirror,|s:she|v:finished|o:her makeup|p:in the back seat|p:of the car|c:while|s:her brother|v:was complaining|p:about the traffic.",
 "p:Before the dance,|s:my friends|v:met|p:at my house|i:to do|o:our makeup,|c:and|s:the bathroom counter|V:was covered|p:with brushes.",
 "sg:Mixing two shades|sp:of lipstick|v:creates|o:a custom color,|c:but|s:the result|v:depends|p:on the lighting|p:in the room.",
-"i:To keep her eyeliner sharp,|s:she|v:cleans|o:the brush|p:after every use|c:and|v:stores|o:it|p:in a small case."
+"i:To keep her eyeliner sharp,|s:she|v:cleans|o:the brush|p:after every use|c:and|v:stores|o:it|p:in a small case.",
+"c:Before|s:the makeup artist|v:started,|s:she|v:studied|o:the actor's face|p:under bright lights|i:to choose|o:the right foundation.",
+"s:The glitter|sa:left on the bathroom sink|V:was discovered|p:by my mother,|c:and|s:I|v:cleaned|o:the whole counter|p:before dinner.",
+"sg:Applying sunscreen|sp:under makeup|v:protects|o:your skin,|c:yet|s:many people|v:forget|i:to use|o:it|p:on cloudy days.",
+"p:For the school play,|s:the actors|sa:playing the ghosts|V:were painted|p:with white powder|c:and|v:wore|o:gray shadows|p:around their eyes.",
+"s:A steady hand|v:matters|p:in eyeliner,|c:so|s:my sister|v:rests|o:her elbow|p:on the table|c:while|s:she|v:draws|o:each wing.",
+"c:Although|s:the tutorial|v:lasted|o:only ten minutes,|s:the look|sa:shown in the video|v:took|o:me|o:an hour|p:on my first try."
 ]},
 
 { topic: "Science and history", items: [
@@ -97,7 +123,26 @@ sentences: [
 "s:The first bicycles|v:had|o:no pedals,|c:so|s:riders|v:moved|p:by pushing their feet|p:against the ground.",
 "sg:Recycling one aluminum can|v:saves|o:enough energy|i:to power|o:a television|p:for three hours,|c:yet|s:millions|sp:of cans|V:are thrown|p:in the trash|o:every day.",
 "c:Once|s:the railroad|V:was completed|p:in 1869,|s:travelers|v:could cross|o:the country|p:in a week;|p:before that,|s:the journey|v:took|o:months.",
-"s:Sea otters|sa:floating on their backs|v:hold|o:hands|c:while|s:they|v:sleep|c:so that|s:the current|v:cannot carry|o:them|p:away from the group."
+"s:Sea otters|sa:floating on their backs|v:hold|o:hands|c:while|s:they|v:sleep|c:so that|s:the current|v:cannot carry|o:them|p:away from the group.",
+"c:When|s:Mount Vesuvius|v:erupted|p:in 79 CE,|s:the city|sp:of Pompeii|V:was buried|p:under ash,|c:and|s:it|v:remained|o:hidden|p:for many centuries.",
+"s:Monarch butterflies|sa:born in late summer|v:fly|p:to Mexico|i:to spend|o:the winter,|c:and|s:their journey|v:can cover|o:three thousand miles.",
+"p:Before the invention|p:of the telephone,|s:urgent messages|V:were sent|p:by telegraph,|c:and|s:operators|v:translated|o:them|p:from Morse code.",
+"sg:Building the pyramids|v:required|o:thousands|p:of workers,|c:and|s:each stone block|V:was moved|p:without modern machines.",
+"c:Because|s:sound|v:travels|o:quickly|p:through water,|s:whales|v:can communicate|p:across great distances|p:in the open ocean.",
+"s:The scientists|sa:studying the ice cores|v:found|o:tiny bubbles|p:of ancient air|a:trapped inside,|c:and|s:these samples|v:revealed|o:the climate|p:of the distant past.",
+"p:During the Middle Ages,|s:books|V:were chained|p:to library shelves|c:because|s:each copy|v:took|o:months|i:to produce.",
+"c:Although|s:the octopus|v:has|o:three hearts,|s:one|sp:of them|v:stops|g:beating|c:when|s:the animal|v:swims.",
+"s:The astronauts|sa:living on the space station|v:exercise|p:for two hours|o:every day|i:to keep|o:their muscles|o:strong.",
+"c:Once|s:the canal|V:was opened|p:in 1914,|s:ships|v:could travel|p:between the two oceans|p:without sailing|p:around South America."
+]},
+
+{ topic: "School life", items: [
+"c:When|s:the fire alarm|v:rang|p:during the math test,|s:the whole class|v:walked|p:to the parking lot|c:and|v:waited|p:in the cold|p:for twenty minutes.",
+"s:The group project|sa:assigned on Monday|V:was finished|p:by Thursday|c:because|s:everyone|sp:in our group|v:agreed|i:to work|p:during lunch.",
+"p:After the last bell,|s:the students|sa:waiting for the late bus|v:played|o:cards|p:on the gym floor|c:until|s:the driver|v:arrived.",
+"sg:Studying with friends|v:helps|o:some students,|c:but|s:I|v:remember|o:more|c:when|s:I|v:review|o:my notes|p:in a quiet room.",
+"i:To finish the yearbook,|s:the editors|v:stayed|p:after school|p:for a week|c:and|v:sorted|p:through hundreds|p:of photos.",
+"s:My locker|V:was jammed|p:on the first day,|c:so|s:the custodian|v:opened|o:it|p:with a special key|c:and|v:showed|o:me|o:the trick."
 ]},
 ],
 
