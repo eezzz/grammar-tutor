@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Grammar Parent Portal</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fredoka:wght@500;600&display=swap">
+<style>
+/* Layout: one reading column. Conclusions first, then skills, then error patterns, then the definitions behind every number. */
+:root{
+  --bg:#eef2fb; --card:#ffffff; --ink:#171c33; --soft:#59607d; --line:#cfd6ea; --track:#e1e6f4;
+  --accent:#3b6fd8; --good:#1f9d63; --warn:#b97a00; --bad:#d6455d; --idle:#8a91ad;
+  --display:"Fredoka","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12162a; --card:#1c2240; --ink:#eef1ff; --soft:#a4abc9; --line:#343c63; --track:#2a3157;
+  --accent:#8fb0ff; --good:#5fdc9f; --warn:#f2c14e; --bad:#ff8496; --idle:#7c84a8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12162a; --card:#1c2240; --ink:#eef1ff; --soft:#a4abc9; --line:#343c63; --track:#2a3157;
+  --accent:#8fb0ff; --good:#5fdc9f; --warn:#f2c14e; --bad:#ff8496; --idle:#7c84a8; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding-inline:16px;padding-block:24px 56px}
+#app{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+h1,h2,.num{font-family:var(--display);font-weight:600;margin:0;text-wrap:balance}
+h1{font-size:2rem;line-height:1.15}
+h2{font-size:1.25rem}
+p{margin:0}
+.soft{color:var(--soft)} .small{font-size:.875rem}
+section{display:flex;flex-direction:column;gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.insights{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
+.insights li{padding-left:14px;border-left:4px solid var(--accent)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.tile{display:flex;flex-direction:column;gap:2px;min-width:0}
+.tile .num{font-size:1.9rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.78rem;color:var(--soft);font-weight:700;letter-spacing:.04em;white-space:nowrap}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.chip{display:inline-block;border-radius:999px;padding:1px 10px;font-size:.8rem;font-weight:700;border:1.5px solid currentColor;white-space:nowrap}
+.chip.good{color:var(--good)} .chip.warn{color:var(--warn)} .chip.bad{color:var(--bad)} .chip.idle{color:var(--idle)}
+.bar{height:10px;border-radius:5px;background:var(--track);min-width:90px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:5px;background:var(--accent)}
+.bar i.good{background:var(--good)} .bar i.warn{background:var(--warn)} .bar i.bad{background:var(--bad)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.two .card{display:flex;flex-direction:column;gap:10px;min-width:0}
+.pair{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.pair b{font-variant-numeric:tabular-nums}
+.split{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--track)}
+.split i{display:block;height:100%}
+.split .a{background:var(--warn)} .split .b{background:var(--bad)}
+details summary{cursor:pointer;font-weight:700}
+details summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.note{border:1px dashed var(--line);border-radius:12px;padding:14px}
+</style>
+
+<div class="card" style="max-width:860px;margin:0 auto 20px;display:flex;flex-direction:column;gap:8px"><label for="file"><b>选择作答记录文件（answers.jsonl）</b></label><input type="file" id="file" accept=".jsonl,.json,.txt"><p class="small soft">文件只在这台设备的浏览器里读取，不会上传到任何地方。载入后会记在本机，下次打开不用再选。</p><div><button id="clear" type="button">清除本机数据</button></div></div>
+<main id="app"></main>
+
+<script>
+var SKILLS=[
+ ["verb","动词与动词短语","基础"],["subj","完整主语","L.7.1a"],["prep","介词短语 vs. 不定式","L.7.1a"],
+ ["clause","分句与句型","L.7.1b"],["verbal","Verbals","L.8.1a"],["voice","主动 / 被动","L.8.1b"],
+ ["mood","动词语气","L.8.1c"],["shift","语态语气转换","L.8.1d"],["punct","标点","L.8.2"],["modifier","修饰语错位","L.7.1c"]];
+var TAGS={
+ "short-prep":"漏掉很短的介词短语（for use）","subj-with-phrase":"主语只选了名词，漏掉修饰它的短语",
+ "middle-clause-subj":"漏掉中间分句的主语","inf-vs-prep":"把不定式（to + 动词）当成介词短语",
+ "helper-verb":"漏掉助动词","verbal-as-verb":"把 gerund / participle 当成动词",
+ "ger-vs-part":"分不清 gerund 和 participle","passive-vs-progressive":"把 was + -ing 当成被动",
+ "careless":"会做但没看完题","other":"其他"};
+var SRC={tutor:"私教课",photo:"真题照片",school:"学校测验",game:"自练页面"};
+var METRICS=[
+ ["首答正确率","最近 20 题里第一次就答对的比例。提示后答对、第二次答对都不算。","80% 以上","最核心的指标。只看第一次作答，才反映她自己会不会。"],
+ ["技能达标","同一技能在两次不同的课上，都答了至少 5 题且首答正确率达到 80%。","每 2–3 周达标 1 项","要求两次课，是为了排除“当天刚讲过所以会”。"],
+ ["进步幅度","某技能最近一次课的正确率，减去第一次课的正确率。","持续为正","比绝对分数更能说明辅导有没有用。"],
+ ["漏选 / 错选比例","所有错误里，漏掉正确答案的次数与选了错误答案的次数之比。","两者都下降","漏选多：找到一部分就停了，是注意力和检查习惯的问题。错选多：概念没弄清，需要重讲规则。"],
+ ["保持率","一项技能达标 7 天以后，复习题的首答正确率。","80% 以上","学会之后忘没忘。低于 80% 就把这项技能放回日常练习。"],
+ ["提示使用率","需要提示才能作答的题目比例。","逐周下降，低于 20%","衡量独立性。正确率高但提示率也高，说明还离不开辅助。"],
+ ["注意力衰减","一次课里前半段与后半段的首答正确率之差。","差距小于 15 个百分点","后半段明显下滑，说明课太长，应该缩短或把休息提前。"],
+ ["上课频率与完成率","最近 7 天的上课次数；按计划做完的课占比；平均时长。","每周 4 次以上，完成率 80% 以上，每次 15–20 分钟","短而频繁比长而偶尔有效。完成率低说明课的设计要改，而不是她不努力。"],
+ ["学校成绩","学校语法测验的得分（你录入，或把成绩照片放进文件夹）。","逐次上升","最终检验。前面的指标都好看但学校成绩不动，说明练的题型和考的不一致。"]];
+
+var S={answers:[],sessions:[],quizzes:[],ready:false,off:false};
+var app=document.getElementById("app");
+
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function ok(a){return a.firstTry===undefined?!!a.correct:!!a.firstTry;}
+function pct(n,d){return d?Math.round(100*n/d):null;}
+function show(p){return p===null?"暂无":p+"%";}
+function tone(p){return p===null?"":p>=80?"good":p>=60?"warn":"bad";}
+function bar(p){return '<div class="bar"><i class="'+tone(p)+'" style="width:'+(p||0)+'%"></i></div>';}
+function order(a,b){return (a.date||"").localeCompare(b.date||"")||(a.session||"").localeCompare(b.session||"")||((a.n||0)-(b.n||0));}
+function groupBy(list,key){var m={};list.forEach(function(x){var k=x[key]||"";(m[k]=m[k]||[]).push(x);});return m;}
+
+function skillStats(id,all){
+  var list=all.filter(function(a){return a.skill===id;});
+  if(!list.length)return {n:0,status:"未开始",cls:"idle",acc:null,trend:"",tags:[]};
+  var last=list.slice(-10),acc=pct(last.filter(ok).length,last.length);
+  var by=groupBy(list,"session"),keys=Object.keys(by).sort(function(a,b){return order(by[a][0],by[b][0]);});
+  var per=keys.map(function(k){return {n:by[k].length,p:pct(by[k].filter(ok).length,by[k].length)};});
+  var q=per.filter(function(s){return s.n>=5;}),m=q.length>=2&&q[q.length-1].p>=80&&q[q.length-2].p>=80;
+  var trend=per.length>=2?per[0].p+"% → "+per[per.length-1].p+"%":"";
+  var tc={};list.forEach(function(a){if(!ok(a))(a.tags||[]).forEach(function(t){tc[t]=(tc[t]||0)+1;});});
+  var tags=Object.keys(tc).sort(function(a,b){return tc[b]-tc[a];}).slice(0,2);
+  var status=m?"已达标":acc>=80?"接近达标":"练习中";
+  return {n:list.length,status:status,cls:m?"good":acc>=80?"warn":"bad",acc:acc,trend:trend,tags:tags};
+}
+
+function render(){
+  var A=S.answers.slice().sort(order),h="";
+  h+='<header><h1>语法学习进度</h1><p class="soft">'+(S.off?"数据读不到。请在 claude.ai 里打开这个页面。":!S.ready?"正在读取记录…":"共 "+A.length+" 条作答记录"+(A.length?"，最近一条 "+esc(A[A.length-1].date):""))+'</p></header>';
+
+  var missed=0,extra=0,tagc={},hints=0;
+  A.forEach(function(a){
+    missed+=Math.max(0,(a.targets||0)-(a.found||0));extra+=a.extra||0;if(a.hint)hints++;
+    if(!ok(a))(a.tags||[]).forEach(function(t){tagc[t]=(tagc[t]||0)+1;});
+  });
+  var tutor=S.sessions.filter(function(s){return s.source==="tutor";});
+  var wk=new Date();wk.setDate(wk.getDate()-7);var wkStr=wk.toISOString().slice(0,10);
+  var week=tutor.filter(function(s){return (s.date||"")>=wkStr;}).length;
+  var last20=A.slice(-20),acc20=pct(last20.filter(ok).length,last20.length);
+  var stats=SKILLS.map(function(s){return skillStats(s[0],A);});
+  var mastered=stats.filter(function(s){return s.status==="已达标";}).length;
+  var topTags=Object.keys(tagc).sort(function(a,b){return tagc[b]-tagc[a];});
+
+  // attention fade across sessions with 6+ numbered answers
+  var f1=[0,0],f2=[0,0],bySes=groupBy(A,"session");
+  Object.keys(bySes).forEach(function(k){
+    var l=bySes[k];if(l.length<6||(l[0].source!=="tutor"))return;
+    var half=Math.floor(l.length/2);
+    l.forEach(function(a,i){var t=i<half?f1:f2;t[1]++;if(ok(a))t[0]++;});
+  });
+  var p1=pct(f1[0],f1[1]),p2=pct(f2[0],f2[1]);
+  var rev=A.filter(function(a){return a.review;}),retain=pct(rev.filter(ok).length,rev.length);
+
+  // conclusions
+  var ins=[];
+  if(S.ready&&!A.length)ins.push("还没有载入数据。用页面顶部的按钮选择 answers.jsonl。");
+  if(A.length&&!tutor.length)ins.push("还没有上课记录。目前的数据全部来自真题照片，照片可能是作答中途拍的，所以以下结论是初步的。");
+  if(missed+extra>0){
+    if(missed>=extra*2)ins.push("她的错误主要是漏选（漏选 "+missed+" 处，错选 "+extra+" 处）。她认得出正确答案，但找到一部分就停了。对策：每题提交前，从句子第一个词再扫一遍。");
+    else if(extra>=missed*2)ins.push("她的错误主要是错选（错选 "+extra+" 处，漏选 "+missed+" 处）。这说明概念有混淆，需要回到规则本身重讲。");
+    else ins.push("漏选 "+missed+" 处，错选 "+extra+" 处，两类错误差不多。");
+  }
+  if(topTags.length)ins.push("最常见的错误："+esc(TAGS[topTags[0]]||topTags[0])+"（"+tagc[topTags[0]]+" 次）。");
+  if(p1!==null&&p2!==null&&p1-p2>=15)ins.push("一次课的后半段正确率比前半段低 "+(p1-p2)+" 个百分点。建议把课缩短，或者把休息提前。");
+  if(tutor.length&&week<4)ins.push("最近 7 天上了 "+week+" 次课，目标是 4 次以上。");
+  if(ins.length)h+='<section><h2>结论</h2><div class="card"><ul class="insights">'+ins.map(function(x){return "<li>"+x+"</li>";}).join("")+'</ul></div></section>';
+
+  h+='<section><h2>关键数字</h2><div class="tiles">'+
+     tile(show(acc20),"首答正确率（最近 "+last20.length+" 题）")+
+     tile(mastered+" / "+SKILLS.length,"已达标技能")+
+     tile(week+" / 4","最近 7 天上课次数")+
+     tile(show(pct(hints,A.length)),"提示使用率")+'</div></section>';
+
+  h+='<section><h2>各项技能</h2><div class="card scroll"><table><thead><tr><th>技能</th><th>状态</th><th>题数</th><th>首答正确率（最近 10 题）</th><th>首次课 → 最近课</th><th>主要错误</th></tr></thead><tbody>';
+  SKILLS.forEach(function(s,i){var t=stats[i];
+    h+='<tr><td><b>'+s[1]+'</b><br><span class="small soft">'+s[2]+'</span></td><td><span class="chip '+t.cls+'">'+t.status+'</span></td><td class="n">'+t.n+'</td>'+
+       '<td class="n">'+(t.n?bar(t.acc)+show(t.acc):'<span class="soft">暂无</span>')+'</td><td class="n">'+(t.trend||'<span class="soft">需要两次课</span>')+'</td>'+
+       '<td class="small">'+(t.tags.length?t.tags.map(function(x){return esc(TAGS[x]||x);}).join("；"):'<span class="soft">暂无</span>')+'</td></tr>';
+  });
+  h+='</tbody></table></div></section>';
+
+  h+='<section><h2>错误规律</h2><div class="two">';
+  var tot=missed+extra;
+  h+='<div class="card"><b>漏选还是错选</b>'+(tot?'<div class="split"><i class="a" style="width:'+pct(missed,tot)+'%"></i><i class="b" style="width:'+pct(extra,tot)+'%"></i></div>'+
+     '<div class="pair"><span>漏选（该选没选）</span><b>'+missed+'</b></div><div class="pair"><span>错选（不该选选了）</span><b>'+extra+'</b></div>':'<span class="soft">还没有错误记录。</span>')+'</div>';
+  h+='<div class="card"><b>错误类型排行</b>'+(topTags.length?topTags.slice(0,5).map(function(t){return '<div class="pair"><span>'+esc(TAGS[t]||t)+'</span><b>'+tagc[t]+'</b></div>';}).join(""):'<span class="soft">还没有错误记录。</span>')+'</div>';
+  h+='<div class="card"><b>注意力衰减</b>'+(p1!==null&&p2!==null?'<div class="pair"><span>前半段</span><b>'+p1+'%</b></div><div class="pair"><span>后半段</span><b>'+p2+'%</b></div>':'<span class="soft">需要至少一次 6 题以上的私教课。</span>')+'</div>';
+  h+='<div class="card"><b>保持率与独立性</b><div class="pair"><span>复习题首答正确率</span><b>'+(rev.length?retain+"%（"+rev.length+" 题）":"暂无")+'</b></div><div class="pair"><span>用了提示的题</span><b>'+hints+" / "+A.length+'</b></div></div>';
+  h+='</div></section>';
+
+  h+='<section><h2>上课记录</h2><div class="card scroll">';
+  var ses=S.sessions.slice().sort(function(a,b){return (b.date||"").localeCompare(a.date||"");});
+  if(!ses.length)h+='<p class="soft">还没有记录。每次私教课结束后会自动加一行。</p>';
+  else{
+    h+='<table><thead><tr><th>日期</th><th>来源</th><th>时长</th><th>完成</th><th>首答正确</th><th>备注</th></tr></thead><tbody>';
+    ses.forEach(function(s){var l=bySes[s.id]||[];
+      h+='<tr><td class="n">'+esc(s.date)+'</td><td>'+esc(SRC[s.source]||s.source)+'</td><td class="n">'+(s.minutes?esc(s.minutes)+" 分钟":"")+'</td><td>'+(s.completed===undefined?"":s.completed?"是":"提前结束")+'</td><td class="n">'+l.filter(ok).length+" / "+l.length+'</td><td class="small">'+esc(s.note)+'</td></tr>';
+    });
+    h+='</tbody></table>';
+  }
+  h+='</div></section>';
+
+  h+='<section><h2>学校成绩</h2><div class="card scroll">';
+  var qz=S.quizzes.slice().sort(function(a,b){return (a.date||"").localeCompare(b.date||"");});
+  if(!qz.length)h+='<p class="soft">还没有成绩。把测验成绩告诉 Claude，或把成绩照片放进文件夹，这里会显示每次的得分。</p>';
+  else{
+    h+='<table><thead><tr><th>日期</th><th>测验</th><th>得分</th><th></th></tr></thead><tbody>';
+    qz.forEach(function(q){var p=pct(q.score,q.total);h+='<tr><td class="n">'+esc(q.date)+'</td><td>'+esc(q.name)+'</td><td class="n">'+esc(q.score)+" / "+esc(q.total)+'</td><td>'+bar(p)+'</td></tr>';});
+    h+='</tbody></table>';
+  }
+  h+='</div></section>';
+
+  h+='<section><h2>怎么判断辅导有没有效果</h2><div class="card scroll"><table><thead><tr><th>指标</th><th>怎么算</th><th>目标</th><th>为什么看它</th></tr></thead><tbody>'+
+     METRICS.map(function(m){return '<tr><td><b>'+m[0]+'</b></td><td>'+m[1]+'</td><td>'+m[2]+'</td><td class="small">'+m[3]+'</td></tr>';}).join("")+
+     '</tbody></table></div><p class="note small">数据少的时候不要下结论。一项技能少于 10 题、或总共少于 3 次课时，数字只能当线索。先看趋势，再看单次分数。</p></section>';
+
+  h+='<section><details><summary>最近 30 条作答</summary><div class="card scroll" style="margin-top:12px">';
+  if(!A.length)h+='<p class="soft">暂无。</p>';
+  else{
+    h+='<table><thead><tr><th>日期</th><th>技能</th><th>题目</th><th>结果</th><th>漏 / 错</th><th>备注</th></tr></thead><tbody>';
+    A.slice(-30).reverse().forEach(function(a){
+      var sk=SKILLS.filter(function(s){return s[0]===a.skill;})[0];
+      h+='<tr><td class="n">'+esc(a.date)+'</td><td>'+esc(sk?sk[1]:a.skill)+'</td><td class="small">'+esc(a.prompt)+'</td><td><span class="chip '+(ok(a)?"good":"bad")+'">'+(ok(a)?"首答正确":"未答对")+'</span></td>'+
+         '<td class="n">'+Math.max(0,(a.targets||0)-(a.found||0))+" / "+(a.extra||0)+'</td><td class="small">'+esc(a.note)+'</td></tr>';
+    });
+    h+='</tbody></table>';
+  }
+  h+='</div></details></section>';
+  app.innerHTML=h;
+}
+function tile(n,l){return '<div class="card tile"><b class="num">'+n+'</b><span class="small soft">'+l+'</span></div>';}
+
+function ingest(text){
+  var A=[],Se=[],Q=[],have={},seen={};
+  String(text||"").split(/\r?\n/).forEach(function(l){
+    l=l.trim();if(!l)return;
+    try{var o=JSON.parse(l);if(o.type==="session")Se.push(o);else if(o.type==="quiz")Q.push(o);else A.push(o);}catch(e){}
+  });
+  Se.forEach(function(s){have[s.id]=1;});
+  A.forEach(function(a){if(a.session&&!have[a.session]&&!seen[a.session]){seen[a.session]=1;Se.push({id:a.session,date:a.date,source:a.source});}});
+  S.answers=A;S.sessions=Se;S.quizzes=Q;S.ready=true;render();
+}
+var KEY="grammar-portal-data",saved="";
+try{saved=localStorage.getItem(KEY)||"";}catch(e){}
+ingest(saved);
+document.getElementById("file").addEventListener("change",function(e){
+  var f=e.target.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(){try{localStorage.setItem(KEY,r.result);}catch(err){}ingest(r.result);};
+  r.readAsText(f);
+});
+document.getElementById("clear").addEventListener("click",function(){
+  try{localStorage.removeItem(KEY);}catch(e){}
+  document.getElementById("file").value="";ingest("");
+});
+</script>
+
+</body>
+</html>
