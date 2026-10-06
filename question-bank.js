@@ -7,7 +7,8 @@
      v  verb, active        V  verb, passive
      p  prepositional phrase
      i  infinitive          g  gerund          a  participle phrase
-     c  connector (and, but, when, because, that)
+     c  coordinating conjunction (for, and, nor, but, or, yet, so)
+     d  subordinating conjunction (when, because, although, if, while, until, once, after, before, that, so that)
      o  anything else (objects, adverbs, complements)
    A chunk can have two roles: sp = a prepositional phrase inside a subject, sa = a participle phrase
    inside a subject, sg = a gerund used as the subject.
@@ -15,11 +16,15 @@
    Keep punctuation at the end of the chunk it follows.
    After editing, run:  node check-bank.js
 
+   MOODS
+   Short sentences for the verb mood set. Put ** around the verb being asked about, then give the answer:
+     0 indicative, 1 interrogative, 2 imperative, 3 conditional, 4 subjunctive
+
    MISSIONS
    For each mission: rule (the tip card), trick (the one-line reminder), ex (worked examples shown after a miss,
    each one [sentence with <b>answer</b>, short note]).
    To show a color in a rule or example, give the <b> a class: rs subject, rv verb, rp prepositional phrase,
-   rx verbal, rn no color. Add "us" for a phrase inside a subject, e.g. <b class='rp us'>.
+   rx verbal, rk connector, rn no color. Add "us" for a phrase inside a subject, e.g. <b class='rp us'>.
 */
 window.CHUNK_HUNT_BANK = {
 
@@ -28,51 +33,51 @@ sentences: [
 { topic: "Field hockey", items: [
 "p:After the final whistle,|s:the players|sp:on both teams|v:shook|o:hands,|c:and|s:the coach|v:told|o:us|i:to rest|p:before the next game.",
 "p:During the second half,|s:the forward|sa:wearing number nine|v:dribbled|p:past two defenders|c:and|v:scored|p:from the top|p:of the circle.",
-"c:Once|s:the rain|v:stopped,|s:the game|sp:between the two rivals|v:continued|p:on the wet turf|c:until|s:the referee|v:blew|o:the whistle.",
-"c:If|s:the goalie|v:leaves|o:the net|i:to chase|o:the ball,|s:the defenders|sp:behind her|v:must cover|o:the open space.",
+"d:Once|s:the rain|v:stopped,|s:the game|sp:between the two rivals|v:continued|p:on the wet turf|d:until|s:the referee|v:blew|o:the whistle.",
+"d:If|s:the goalie|v:leaves|o:the net|i:to chase|o:the ball,|s:the defenders|sp:behind her|v:must cover|o:the open space.",
 "s:The team|sa:coached by my aunt|v:has won|o:every game|p:since September,|c:and|s:the players|v:hope|i:to reach|o:the state finals|p:in November.",
 "i:To make the varsity team,|s:a player|v:needs|o:strong stick skills,|c:so|s:my friend|v:practices|g:dribbling|p:in her driveway|p:after school.",
-"c:Until|s:the new turf|V:was installed,|s:games|sp:at our school|V:were canceled|p:after every storm;|o:now|s:the team|v:plays|p:in any weather.",
-"p:In the final minute,|s:the midfielder|sa:guarding the left side|v:stole|o:the ball|c:and|v:passed|o:it|p:to the captain|c:before|s:the defenders|v:could react.",
-"c:Although|s:our goalie|V:was injured|p:during warmups,|s:she|v:insisted|p:on playing|c:and|v:blocked|o:nine shots|p:in the second half.",
-"sg:Running sprints|sp:in the rain|v:is|o:miserable,|c:but|s:the coach|v:believes|c:that|s:hard practices|v:make|o:close games easier.",
+"d:Until|s:the new turf|V:was installed,|s:games|sp:at our school|V:were canceled|p:after every storm;|o:now|s:the team|v:plays|p:in any weather.",
+"p:In the final minute,|s:the midfielder|sa:guarding the left side|v:stole|o:the ball|c:and|v:passed|o:it|p:to the captain|d:before|s:the defenders|v:could react.",
+"d:Although|s:our goalie|V:was injured|p:during warmups,|s:she|v:insisted|p:on playing|c:and|v:blocked|o:nine shots|p:in the second half.",
+"sg:Running sprints|sp:in the rain|v:is|o:miserable,|c:but|s:the coach|v:believes|d:that|s:hard practices|v:make|o:close games easier.",
 "s:The new sticks|sa:ordered by the school|v:arrived|p:on Monday,|c:so|s:every player|sp:on the team|v:stayed|p:after practice|i:to tape|o:the handles.",
-"c:When|s:the referee|v:raised|o:her arm,|s:the crowd|sp:behind our bench|v:groaned,|c:but|s:the penalty|V:was given|p:to the other team.",
+"d:When|s:the referee|v:raised|o:her arm,|s:the crowd|sp:behind our bench|v:groaned,|c:but|s:the penalty|V:was given|p:to the other team.",
 "i:To earn a starting spot,|s:the youngest player|sp:on the roster|v:practiced|g:hitting|p:against the garage door|p:until dark.",
-"s:The championship game|V:was moved|p:to Saturday|c:because|s:the field|sp:behind the gym|V:was flooded|p:by the storm.",
+"s:The championship game|V:was moved|p:to Saturday|d:because|s:the field|sp:behind the gym|V:was flooded|p:by the storm.",
 "p:After three overtime periods,|s:the exhausted players|v:walked|p:to the bus|p:in silence,|c:yet|s:nobody|v:wanted|i:to leave|o:the field.",
 "p:On the first day|p:of tryouts,|s:forty girls|v:gathered|p:on the turf,|c:but|s:only eighteen|V:were chosen|p:for the team.",
 "s:The defender|sa:marking their best scorer|v:stayed|p:beside her|p:for the whole game|c:and|v:refused|i:to give|o:her|o:any space.",
-"c:Because|s:the bus|v:broke down|p:on the highway,|s:our team|v:arrived|p:at the tournament|p:with five minutes|i:to warm up.",
+"d:Because|s:the bus|v:broke down|p:on the highway,|s:our team|v:arrived|p:at the tournament|p:with five minutes|i:to warm up.",
 "sg:Winning the first game|v:gave|o:us|o:confidence,|c:but|s:the second match|sp:against the defending champions|v:tested|o:every player|p:on the field.",
-"c:After|s:the ball|v:hit|o:the post,|s:it|v:bounced|p:across the goal line|c:and|V:was cleared|p:by a diving defender.",
-"s:The captain|v:gathered|o:the team|p:in a circle|p:at halftime|i:to remind|o:everyone|c:that|s:one goal|v:could change|o:the game."
+"d:After|s:the ball|v:hit|o:the post,|s:it|v:bounced|p:across the goal line|c:and|V:was cleared|p:by a diving defender.",
+"s:The captain|v:gathered|o:the team|p:in a circle|p:at halftime|i:to remind|o:everyone|d:that|s:one goal|v:could change|o:the game."
 ]},
 
 { topic: "Music and concerts", items: [
-"c:Although|s:the tickets|V:were sold|p:in ten minutes,|s:my cousin|v:managed|i:to find|o:two seats|p:near the stage.",
-"c:When|s:the lights|v:dimmed,|s:thousands|sp:of fans|sa:holding light sticks|v:began|i:to scream;|s:the opening song|V:was drowned|o:out|p:by the noise.",
-"c:Because|s:the album|V:was released|p:at midnight,|s:fans|sp:around the world|v:stayed|o:awake|i:to hear|o:it first.",
+"d:Although|s:the tickets|V:were sold|p:in ten minutes,|s:my cousin|v:managed|i:to find|o:two seats|p:near the stage.",
+"d:When|s:the lights|v:dimmed,|s:thousands|sp:of fans|sa:holding light sticks|v:began|i:to scream;|s:the opening song|V:was drowned|o:out|p:by the noise.",
+"d:Because|s:the album|V:was released|p:at midnight,|s:fans|sp:around the world|v:stayed|o:awake|i:to hear|o:it first.",
 "s:The seven members|sp:of BTS|v:finished|o:their military service|p:in 2025;|p:within a year,|s:they|v:had recorded|o:a new album|c:and|v:announced|o:a world tour.",
-"sg:Learning the choreography|v:took|o:three weeks,|c:but|s:the dancers|v:kept|g:practicing|p:in the studio|c:until|s:every move|v:looked|o:perfect.",
-"p:Before the concert,|s:the singer|v:walked|p:onto the stage|i:to check|o:the sound,|c:while|s:her band|v:waited|p:behind the curtain.",
-"p:As a surprise,|s:my best friend|v:hid|o:two tickets|p:inside a birthday card;|s:I|v:screamed|c:when|s:I|v:opened|o:it.",
-"c:While|s:the crowd|v:was singing|o:the chorus,|s:the drummer|v:stopped|g:playing|p:in the middle|p:of the song|c:so that|s:everyone|v:could hear|o:the voices.",
-"s:The song|V:was written|p:in one afternoon,|c:yet|s:it|v:stayed|p:at number one|p:for eight weeks|c:after|s:it|V:was released.",
+"sg:Learning the choreography|v:took|o:three weeks,|c:but|s:the dancers|v:kept|g:practicing|p:in the studio|d:until|s:every move|v:looked|o:perfect.",
+"p:Before the concert,|s:the singer|v:walked|p:onto the stage|i:to check|o:the sound,|d:while|s:her band|v:waited|p:behind the curtain.",
+"p:As a surprise,|s:my best friend|v:hid|o:two tickets|p:inside a birthday card;|s:I|v:screamed|d:when|s:I|v:opened|o:it.",
+"d:While|s:the crowd|v:was singing|o:the chorus,|s:the drummer|v:stopped|g:playing|p:in the middle|p:of the song|d:so that|s:everyone|v:could hear|o:the voices.",
+"s:The song|V:was written|p:in one afternoon,|c:yet|s:it|v:stayed|p:at number one|p:for eight weeks|d:after|s:it|V:was released.",
 "s:The fans|sa:waiting outside the arena|V:were given|o:free posters,|c:and|s:the first hundred people|sp:in line|v:met|o:the band|p:after the show.",
 "s:The Unraveled Tour|v:opened|p:in Hartford|p:in September,|c:and|s:tickets|sp:for many shows|v:sold out|o:quickly.",
-"c:When|s:BTS|v:returned|p:to the stage|p:in March,|s:about 100,000 fans|v:gathered|p:in Gwanghwamun Square|i:to watch|o:the free concert.",
+"d:When|s:BTS|v:returned|p:to the stage|p:in March,|s:about 100,000 fans|v:gathered|p:in Gwanghwamun Square|i:to watch|o:the free concert.",
 "s:The album|sa:released in March|v:reached|o:number one|p:on the Billboard 200,|c:and|s:the group|v:began|o:a world tour|p:in April.",
 "p:During the encore,|s:the lead singer|v:asked|o:the audience|i:to raise|o:their phones,|c:and|s:the whole arena|v:glowed|p:like a sky|p:of stars.",
 "sg:Writing honest lyrics|v:takes|o:courage,|c:so|s:many young artists|v:keep|o:a journal|p:beside their bed|i:to save|o:ideas|p:for later.",
-"s:The opening band|v:played|p:for thirty minutes|c:while|s:the stage crew|sa:hidden behind a curtain|v:prepared|o:the lights|p:for the main show.",
-"c:Because|s:the concert|V:was filmed|p:for a documentary,|s:cameras|sp:on long cranes|v:floated|p:above the crowd|p:throughout the night.",
+"s:The opening band|v:played|p:for thirty minutes|d:while|s:the stage crew|sa:hidden behind a curtain|v:prepared|o:the lights|p:for the main show.",
+"d:Because|s:the concert|V:was filmed|p:for a documentary,|s:cameras|sp:on long cranes|v:floated|p:above the crowd|p:throughout the night.",
 "s:My cousin|v:waited|p:in line|p:for six hours|i:to buy|o:a tour poster,|c:but|s:the last one|V:was sold|p:to the girl|p:in front of her.",
-"c:After|s:the band|v:finished|g:rehearsing,|s:the dancers|v:stayed|p:on stage|i:to practice|o:the hardest part|p:of the routine.",
+"d:After|s:the band|v:finished|g:rehearsing,|s:the dancers|v:stayed|p:on stage|i:to practice|o:the hardest part|p:of the routine.",
 "s:The song|sa:playing on the radio|v:reminded|o:me|p:of last summer,|c:so|s:I|v:texted|o:the title|p:to my best friend.",
-"p:At the soundcheck,|s:the guitarist|v:noticed|c:that|s:one amplifier|v:was buzzing,|c:so|s:a technician|v:replaced|o:it|p:within minutes.",
+"p:At the soundcheck,|s:the guitarist|v:noticed|d:that|s:one amplifier|v:was buzzing,|c:so|s:a technician|v:replaced|o:it|p:within minutes.",
 "s:The setlist|sa:taped to the stage floor|V:was photographed|p:by a fan|p:in the front row,|c:and|s:the picture|v:spread|p:across the internet|p:in an hour.",
-"c:While|s:the choir|v:was rehearsing|p:in the auditorium,|s:the band|v:practiced|p:in the hallway|i:to stay|o:warm|p:before the concert.",
+"d:While|s:the choir|v:was rehearsing|p:in the auditorium,|s:the band|v:practiced|p:in the hallway|i:to stay|o:warm|p:before the concert.",
 "sg:Learning Korean|sp:through song lyrics|v:has helped|o:my friend,|c:and|s:she|v:understands|o:most interviews|p:without subtitles.",
 "s:The drummer|v:counted|p:to four,|s:the lights|v:flashed,|c:and|s:the first chord|V:was played|p:by three guitars|p:at once.",
 "i:To surprise the audience,|s:the singer|v:appeared|p:at the back|p:of the arena|c:and|v:walked|p:through the crowd|p:toward the stage."
@@ -82,17 +87,17 @@ sentences: [
 "s:My sister|v:found|o:a vintage jacket|p:at the thrift store|p:for six dollars,|c:and|s:she|v:refuses|i:to lend|o:it|p:to anyone.",
 "s:The costume|sa:covered in tiny mirrors|V:was sewn|p:by hand,|c:and|s:it|v:sparkles|p:under the lights|p:during every song.",
 "p:At her old school,|s:the uniforms|V:were chosen|p:by the principal,|c:but|s:the students|sp:at her new school|v:design|o:their own team jerseys.",
-"sg:Thrifting|v:has become|o:popular|p:with teenagers|c:because|s:it|v:saves|o:money|c:and|v:keeps|o:old clothes|p:out of landfills.",
+"sg:Thrifting|v:has become|o:popular|p:with teenagers|d:because|s:it|v:saves|o:money|c:and|v:keeps|o:old clothes|p:out of landfills.",
 "s:The dress|sa:hanging in the window|V:was designed|p:by a student,|c:and|s:it|v:sold|p:for two hundred dollars|p:at the school auction.",
-"c:Although|s:vintage jeans|v:can be|o:expensive,|s:shoppers|sp:with patience|v:find|o:bargains|p:at garage sales.",
+"d:Although|s:vintage jeans|v:can be|o:expensive,|s:shoppers|sp:with patience|v:find|o:bargains|p:at garage sales.",
 "s:The designer|v:sketched|o:forty outfits|p:in one week;|s:only twelve|sp:of them|V:were chosen|p:for the runway show.",
-"c:When|s:the zipper|v:broke|p:before the show,|s:the model|sa:wearing the final gown|V:was sewn|p:into it|p:by two assistants.",
+"d:When|s:the zipper|v:broke|p:before the show,|s:the model|sa:wearing the final gown|V:was sewn|p:into it|p:by two assistants.",
 "s:Thrift stores|sp:near college campuses|v:receive|o:donations|p:in May,|c:so|s:smart shoppers|v:plan|i:to visit|o:them|p:at the end|p:of the school year.",
 "p:At the spring fashion show,|s:the youngest designer|v:presented|o:a jacket|a:made from recycled denim,|c:and|s:the judges|v:gave|o:her|o:first prize.",
-"c:Because|s:the fabric|V:was dyed|p:by hand,|s:each scarf|sp:in the collection|v:has|o:a slightly different shade|p:of blue.",
-"sg:Sewing a straight seam|v:sounds|o:simple,|c:but|s:most beginners|v:practice|p:on scrap fabric|p:for weeks|c:before|s:they|v:cut|o:real cloth.",
+"d:Because|s:the fabric|V:was dyed|p:by hand,|s:each scarf|sp:in the collection|v:has|o:a slightly different shade|p:of blue.",
+"sg:Sewing a straight seam|v:sounds|o:simple,|c:but|s:most beginners|v:practice|p:on scrap fabric|p:for weeks|d:before|s:they|v:cut|o:real cloth.",
 "s:The sneakers|sa:displayed in the front window|V:were released|p:in limited numbers,|c:so|s:collectors|v:lined up|p:outside the store|p:before sunrise.",
-"c:When|s:my aunt|v:cleaned|o:her closet,|s:she|v:gave|o:me|o:a leather bag|p:from the 1980s|c:and|v:told|o:me|i:to take|o:good care|p:of it.",
+"d:When|s:my aunt|v:cleaned|o:her closet,|s:she|v:gave|o:me|o:a leather bag|p:from the 1980s|c:and|v:told|o:me|i:to take|o:good care|p:of it.",
 "p:In the costume shop,|s:rows|sp:of sequined jackets|v:hung|p:beside racks|p:of feathered hats,|c:and|s:every piece|V:was labeled|p:with a performer's name.",
 "i:To save money,|s:the drama club|v:borrowed|o:costumes|p:from another school|c:and|v:returned|o:them|p:after the final show.",
 "s:The runway|V:was lit|p:from below,|c:so|s:the models|sa:walking in silver boots|v:seemed|i:to float|p:above the floor."
@@ -100,50 +105,78 @@ sentences: [
 
 { topic: "Makeup", items: [
 "sg:Blending eyeshadow|v:takes|o:practice,|c:but|s:the artist|sp:in the video|v:finishes|o:each look|p:in five minutes.",
-"s:The smudged eyeliner|v:looked|o:terrible|p:at first,|c:but|s:she|v:decided|i:to keep|o:it|c:because|s:the messy style|v:matched|o:her outfit.",
-"p:Without a mirror,|s:she|v:finished|o:her makeup|p:in the back seat|p:of the car|c:while|s:her brother|v:was complaining|p:about the traffic.",
+"s:The smudged eyeliner|v:looked|o:terrible|p:at first,|c:but|s:she|v:decided|i:to keep|o:it|d:because|s:the messy style|v:matched|o:her outfit.",
+"p:Without a mirror,|s:she|v:finished|o:her makeup|p:in the back seat|p:of the car|d:while|s:her brother|v:was complaining|p:about the traffic.",
 "p:Before the dance,|s:my friends|v:met|p:at my house|i:to do|o:our makeup,|c:and|s:the bathroom counter|V:was covered|p:with brushes.",
 "sg:Mixing two shades|sp:of lipstick|v:creates|o:a custom color,|c:but|s:the result|v:depends|p:on the lighting|p:in the room.",
 "i:To keep her eyeliner sharp,|s:she|v:cleans|o:the brush|p:after every use|c:and|v:stores|o:it|p:in a small case.",
-"c:Before|s:the makeup artist|v:started,|s:she|v:studied|o:the actor's face|p:under bright lights|i:to choose|o:the right foundation.",
+"d:Before|s:the makeup artist|v:started,|s:she|v:studied|o:the actor's face|p:under bright lights|i:to choose|o:the right foundation.",
 "s:The glitter|sa:left on the bathroom sink|V:was discovered|p:by my mother,|c:and|s:I|v:cleaned|o:the whole counter|p:before dinner.",
 "sg:Applying sunscreen|sp:under makeup|v:protects|o:your skin,|c:yet|s:many people|v:forget|i:to use|o:it|p:on cloudy days.",
 "p:For the school play,|s:the actors|sa:playing the ghosts|V:were painted|p:with white powder|c:and|v:wore|o:gray shadows|p:around their eyes.",
-"s:A steady hand|v:matters|p:in eyeliner,|c:so|s:my sister|v:rests|o:her elbow|p:on the table|c:while|s:she|v:draws|o:each wing.",
-"c:Although|s:the tutorial|v:lasted|o:only ten minutes,|s:the look|sa:shown in the video|v:took|o:me|o:an hour|p:on my first try."
+"s:A steady hand|v:matters|p:in eyeliner,|c:so|s:my sister|v:rests|o:her elbow|p:on the table|d:while|s:she|v:draws|o:each wing.",
+"d:Although|s:the tutorial|v:lasted|o:only ten minutes,|s:the look|sa:shown in the video|v:took|o:me|o:an hour|p:on my first try."
 ]},
 
 { topic: "Science and history", items: [
-"c:Until|s:the printing press|V:was invented,|s:books|V:were copied|p:by hand,|c:and|s:most people|v:owned|o:none.",
+"d:Until|s:the printing press|V:was invented,|s:books|V:were copied|p:by hand,|c:and|s:most people|v:owned|o:none.",
 "s:Honeybees|sa:returning to the hive|v:perform|o:a dance|i:to show|o:the direction|p:of the flowers,|c:and|s:the other bees|v:follow|o:it|p:with surprising accuracy.",
-"c:When|s:a volcano|v:erupts|p:beneath the ocean,|s:the lava|sa:cooled by seawater|v:hardens|p:into rock|c:and|v:can form|o:a new island|p:over thousands of years.",
+"d:When|s:a volcano|v:erupts|p:beneath the ocean,|s:the lava|sa:cooled by seawater|v:hardens|p:into rock|c:and|v:can form|o:a new island|p:over thousands of years.",
 "s:The Great Wall|sp:of China|V:was built|p:over many centuries;|s:workers|sp:from different dynasties|v:added|o:new sections|i:to protect|o:the northern border.",
-"c:Because|s:the Moon|v:has|o:no atmosphere,|s:footprints|sa:left by astronauts|v:remain|p:on the surface|p:for millions of years.",
-"p:In the desert,|s:many animals|v:sleep|p:during the day|i:to avoid|o:the heat,|c:and|s:they|v:hunt|p:at night|c:when|s:the air|v:is|o:cooler.",
+"d:Because|s:the Moon|v:has|o:no atmosphere,|s:footprints|sa:left by astronauts|v:remain|p:on the surface|p:for millions of years.",
+"p:In the desert,|s:many animals|v:sleep|p:during the day|i:to avoid|o:the heat,|c:and|s:they|v:hunt|p:at night|d:when|s:the air|v:is|o:cooler.",
 "s:The first bicycles|v:had|o:no pedals,|c:so|s:riders|v:moved|p:by pushing their feet|p:against the ground.",
 "sg:Recycling one aluminum can|v:saves|o:enough energy|i:to power|o:a television|p:for three hours,|c:yet|s:millions|sp:of cans|V:are thrown|p:in the trash|o:every day.",
-"c:Once|s:the railroad|V:was completed|p:in 1869,|s:travelers|v:could cross|o:the country|p:in a week;|p:before that,|s:the journey|v:took|o:months.",
-"s:Sea otters|sa:floating on their backs|v:hold|o:hands|c:while|s:they|v:sleep|c:so that|s:the current|v:cannot carry|o:them|p:away from the group.",
-"c:When|s:Mount Vesuvius|v:erupted|p:in 79 CE,|s:the city|sp:of Pompeii|V:was buried|p:under ash,|c:and|s:it|v:remained|o:hidden|p:for many centuries.",
+"d:Once|s:the railroad|V:was completed|p:in 1869,|s:travelers|v:could cross|o:the country|p:in a week;|p:before that,|s:the journey|v:took|o:months.",
+"s:Sea otters|sa:floating on their backs|v:hold|o:hands|d:while|s:they|v:sleep|d:so that|s:the current|v:cannot carry|o:them|p:away from the group.",
+"d:When|s:Mount Vesuvius|v:erupted|p:in 79 CE,|s:the city|sp:of Pompeii|V:was buried|p:under ash,|c:and|s:it|v:remained|o:hidden|p:for many centuries.",
 "s:Monarch butterflies|sa:born in late summer|v:fly|p:to Mexico|i:to spend|o:the winter,|c:and|s:their journey|v:can cover|o:three thousand miles.",
 "p:Before the invention|p:of the telephone,|s:urgent messages|V:were sent|p:by telegraph,|c:and|s:operators|v:translated|o:them|p:from Morse code.",
 "sg:Building the pyramids|v:required|o:thousands|p:of workers,|c:and|s:each stone block|V:was moved|p:without modern machines.",
-"c:Because|s:sound|v:travels|o:quickly|p:through water,|s:whales|v:can communicate|p:across great distances|p:in the open ocean.",
+"d:Because|s:sound|v:travels|o:quickly|p:through water,|s:whales|v:can communicate|p:across great distances|p:in the open ocean.",
 "s:The scientists|sa:studying the ice cores|v:found|o:tiny bubbles|p:of ancient air|a:trapped inside,|c:and|s:these samples|v:revealed|o:the climate|p:of the distant past.",
-"p:During the Middle Ages,|s:books|V:were chained|p:to library shelves|c:because|s:each copy|v:took|o:months|i:to produce.",
-"c:Although|s:the octopus|v:has|o:three hearts,|s:one|sp:of them|v:stops|g:beating|c:when|s:the animal|v:swims.",
+"p:During the Middle Ages,|s:books|V:were chained|p:to library shelves|d:because|s:each copy|v:took|o:months|i:to produce.",
+"d:Although|s:the octopus|v:has|o:three hearts,|s:one|sp:of them|v:stops|g:beating|d:when|s:the animal|v:swims.",
 "s:The astronauts|sa:living on the space station|v:exercise|p:for two hours|o:every day|i:to keep|o:their muscles|o:strong.",
-"c:Once|s:the canal|V:was opened|p:in 1914,|s:ships|v:could travel|p:between the two oceans|p:without sailing|p:around South America."
+"d:Once|s:the canal|V:was opened|p:in 1914,|s:ships|v:could travel|p:between the two oceans|p:without sailing|p:around South America."
 ]},
 
 { topic: "School life", items: [
-"c:When|s:the fire alarm|v:rang|p:during the math test,|s:the whole class|v:walked|p:to the parking lot|c:and|v:waited|p:in the cold|p:for twenty minutes.",
-"s:The group project|sa:assigned on Monday|V:was finished|p:by Thursday|c:because|s:everyone|sp:in our group|v:agreed|i:to work|p:during lunch.",
-"p:After the last bell,|s:the students|sa:waiting for the late bus|v:played|o:cards|p:on the gym floor|c:until|s:the driver|v:arrived.",
-"sg:Studying with friends|v:helps|o:some students,|c:but|s:I|v:remember|o:more|c:when|s:I|v:review|o:my notes|p:in a quiet room.",
+"d:When|s:the fire alarm|v:rang|p:during the math test,|s:the whole class|v:walked|p:to the parking lot|c:and|v:waited|p:in the cold|p:for twenty minutes.",
+"s:The group project|sa:assigned on Monday|V:was finished|p:by Thursday|d:because|s:everyone|sp:in our group|v:agreed|i:to work|p:during lunch.",
+"p:After the last bell,|s:the students|sa:waiting for the late bus|v:played|o:cards|p:on the gym floor|d:until|s:the driver|v:arrived.",
+"sg:Studying with friends|v:helps|o:some students,|c:but|s:I|v:remember|o:more|d:when|s:I|v:review|o:my notes|p:in a quiet room.",
 "i:To finish the yearbook,|s:the editors|v:stayed|p:after school|p:for a week|c:and|v:sorted|p:through hundreds|p:of photos.",
 "s:My locker|V:was jammed|p:on the first day,|c:so|s:the custodian|v:opened|o:it|p:with a special key|c:and|v:showed|o:me|o:the trick."
 ]},
+],
+
+moods: [
+["BTS **released** a new album in March.",0],
+["The team **practices** on the turf every afternoon.",0],
+["My sister **has** three vintage jackets.",0],
+["The concert **was** louder than I expected.",0],
+["Most thrift stores **receive** donations in the spring.",0],
+["**Did** you **finish** the choreography?",1],
+["Where **is** the nearest thrift store?",1],
+["**Have** the tickets **arrived** yet?",1],
+["Who **scored** the winning goal?",1],
+["**Pass** the ball to the left wing.",2],
+["Please **bring** your stick and shin guards tomorrow.",2],
+["**Blend** the eyeshadow before it dries.",2],
+["**Meet** us at the merch table after the show.",2],
+["Never **leave** your brushes dirty.",2],
+["If it rained, the game **would move** indoors.",3],
+["She **could make** varsity with more practice.",3],
+["If I were taller, I **would play** goalie.",3],
+["We **might get** front-row seats if we leave now.",3],
+["With a steadier hand, my eyeliner **would look** better.",3],
+["If I **were** taller, I would play goalie.",4],
+["I wish the concert **were** tonight.",4],
+["The coach demands that every player **be** on time.",4],
+["The director asked that the singer **wear** the silver jacket.",4],
+["If she **were** the captain, practices would be shorter.",4],
+["It is essential that the goalie **stay** in the circle.",4]
 ],
 
 missions: {
@@ -239,15 +272,69 @@ paint: {
     "<b class='rs'>Subjects</b> next: who or what does each verb? Take every word that describes it: <b class='rs'>the players</b>.",
     "<b class='rp'>Prepositional phrases</b>: preposition + noun: <b class='rp'>after the game</b>, <b class='rp'>to the bus</b>.",
     "<b class='rx'>Verbals</b>: to + verb, or an -ing / -ed word that is not working as the verb: <b class='rx'>to rest</b>, <b class='rx'>wearing red</b>.",
-    "<b class='rn'>No color</b> for the rest: objects, and, but, when, because.",
-    "All together: <b class='rp'>After the game,</b> <b class='rs'>the players</b> <b class='rp us'>on both teams</b> <b class='rv'>shook</b> hands and <b class='rv'>went</b> <b class='rp'>to the bus</b> <b class='rx'>to rest</b>."
+    "<b class='rk'>Connectors</b>: and, but, so, when, because, although, that.",
+    "<b class='rn'>No color</b> for the rest: objects and describing words.",
+    "All together: <b class='rp'>After the game,</b> <b class='rs'>the players</b> <b class='rp us'>on both teams</b> <b class='rv'>shook</b> hands <b class='rk'>and</b> <b class='rv'>went</b> <b class='rp'>to the bus</b> <b class='rx'>to rest</b>."
   ],
   trick: "A phrase inside a subject, like \"on both teams\", can be the subject color or the phrase color. Both count.",
   ex: [
     ["<b class='rs'>The fans</b> <b class='rp us'>in line</b> <b class='rv'>waited</b>.","\"in line\" is part of the subject and also a prepositional phrase."],
     ["<b class='rs'>She</b> <b class='rv'>stopped</b> <b class='rx'>to rest</b>.","to + verb is a verbal, not a prepositional phrase."],
     ["<b class='rs'>The girl</b> <b class='rx us'>wearing red</b> <b class='rv'>scored</b>.","\"wearing red\" describes the girl. Verbal."],
-    ["<b class='rs'>They</b> <b class='rv'>left</b> <b class='rn'>when</b> <b class='rs'>it</b> <b class='rv'>rained</b>.","Words like when, and, but get no color."]
+    ["<b class='rs'>They</b> <b class='rv'>left</b> <b class='rk'>when</b> <b class='rs'>it</b> <b class='rv'>rained</b>.","when, and, but are connectors."]
+  ]
+},
+
+conj: {
+  rule: [
+    "A conjunction joins words or clauses.",
+    "<b class='rk'>Coordinating</b>: for, and, nor, but, or, yet, so. Remember them as FANBOYS. They join two equal parts.",
+    "<b class='rk'>Subordinating</b>: when, because, although, if, while, until, once, after, before, that, so that. They start a clause that cannot stand alone."
+  ],
+  trick: "FANBOYS = coordinating. Any other word that starts a clause is subordinating.",
+  ex: [
+    ["She sang, <b class='rk'>and</b> the crowd cheered.","and is one of the FANBOYS: coordinating."],
+    ["She sang <b class='rk'>because</b> the crowd cheered.","\"because the crowd cheered\" cannot stand alone: subordinating."],
+    ["<b class='rk'>Although</b> it rained, we played.","Subordinating, even at the start of the sentence."],
+    ["We ran, <b class='rk'>so</b> we made the bus.","so is one of the FANBOYS: coordinating."],
+    ["We ran <b class='rk'>so that</b> we would make the bus.","\"so that\" is two words and it is subordinating."]
+  ]
+},
+
+stype: {
+  rule: [
+    "Count the clauses. A clause has its own subject and its own verb.",
+    "An <b>independent</b> clause can stand alone. A <b>dependent</b> clause starts with a word like when, because, although, if, that.",
+    "<b>Simple</b>: 1 independent clause.",
+    "<b>Compound</b>: 2 or more independent clauses, joined by FANBOYS or a semicolon.",
+    "<b>Complex</b>: 1 independent clause + at least 1 dependent clause.",
+    "<b>Compound-complex</b>: 2 or more independent clauses + at least 1 dependent clause."
+  ],
+  trick: "One subject doing two things (She ran and jumped) is still one clause. Count the subjects, not the verbs.",
+  ex: [
+    ["The goalie dove <b>and</b> blocked the shot.","One subject, two verbs. Simple."],
+    ["The goalie dove, <b>and</b> the crowd cheered.","Two subjects, two independent clauses. Compound."],
+    ["<b>When</b> the goalie dove, the crowd cheered.","One dependent clause + one independent clause. Complex."],
+    ["<b>When</b> the goalie dove, the crowd cheered, <b>and</b> the coach smiled.","One dependent + two independent. Compound-complex."]
+  ]
+},
+
+mood: {
+  rule: [
+    "Mood shows what the speaker is doing with the verb.",
+    "<b>Indicative</b> states a fact or opinion: <i>She plays defense.</i>",
+    "<b>Interrogative</b> asks a question: <i>Does she play defense?</i>",
+    "<b>Imperative</b> gives a command. The subject \"you\" is hidden: <i>Pass the ball.</i>",
+    "<b>Conditional</b> says what would or could happen: <i>She would play if she had a stick.</i>",
+    "<b>Subjunctive</b> is a wish, a demand, or something contrary to fact: <i>I wish I were taller. The coach asked that she be on time.</i>"
+  ],
+  trick: "\"If I were\", \"I wish she were\" and \"that he be\" are subjunctive. Would, could and might point to conditional.",
+  ex: [
+    ["If I <b>were</b> a singer, I would tour the world.","\"were\" after I: contrary to fact. Subjunctive."],
+    ["If I were a singer, I <b>would tour</b> the world.","would + verb: what could happen. Conditional."],
+    ["<b>Bring</b> your ticket.","A command with a hidden \"you\". Imperative."],
+    ["The coach insists that she <b>arrive</b> early.","A demand, and no -s on the verb. Subjunctive."],
+    ["She <b>arrives</b> early every day.","A plain fact. Indicative."]
   ]
 }
 }

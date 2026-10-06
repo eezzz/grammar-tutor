@@ -91,7 +91,7 @@ button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 
 .xray{border-top:1px solid var(--line);padding-top:14px;margin-top:4px;display:flex;flex-direction:column;gap:10px}
 .xr{font-size:1.05rem;line-height:2.2}
-.rs{--c:var(--m-subj)} .rv{--c:var(--m-verb)} .rp{--c:var(--m-prep)} .rx{--c:var(--m-verbal)}
+.rk{--c:var(--m-voice)} .rs{--c:var(--m-subj)} .rv{--c:var(--m-verb)} .rp{--c:var(--m-prep)} .rx{--c:var(--m-verbal)}
 .xr span[class],.panel b[class]{background:color-mix(in srgb,var(--c) 20%,transparent);box-shadow:inset 0 -2px 0 var(--c);padding:2px 6px;border-radius:4px;color:var(--ink);font-weight:600;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .xr span.us,.panel b.us{box-shadow:inset 0 -2px 0 var(--c),0 3px 0 var(--m-subj)}
 .panel b.rn{background:none;box-shadow:none;outline:1px dashed var(--soft);outline-offset:-1px}
@@ -107,6 +107,7 @@ button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .rule li:has(b.rv){border-left-color:var(--m-verb)}
 .rule li:has(b.rp){border-left-color:var(--m-prep)}
 .rule li:has(b.rx){border-left-color:var(--m-verbal)}
+.rule li:has(b.rk){border-left-color:var(--m-voice)}
 .rule li:has(b.rn){border-left-color:var(--line)}
 .rule li:has(b.rv):has(b.rs){border-left-color:var(--ink)}
 @media (prefers-reduced-motion: reduce){.chunk,.mission{transition:none}}
@@ -122,23 +123,44 @@ var SENT=[];
 BANK.sentences.forEach(function(g){g.items.forEach(function(s){SENT.push(s);});});
 var OPT_VERBAL=["Gerund (acts like a noun)","Participle (acts like an adjective)","Infinitive (to + verb)","Prepositional phrase"];
 var OPT_VOICE=["Active voice","Passive voice"];
-var PAINT=[["s","Subject","--m-subj"],["v","Verb","--m-verb"],["p","Prepositional phrase","--m-prep"],["x","Verbal","--m-verbal"]];
+var PAINT=[["s","Subject","--m-subj"],["v","Verb","--m-verb"],["p","Prepositional phrase","--m-prep"],["x","Verbal","--m-verbal"],["k","Connector","--m-voice"]];
 
 function isS(c){return c.r.indexOf("s")>=0;}
 function isV(c){return /[vV]/.test(c.r);}
 function isP(c){return c.r.indexOf("p")>=0;}
 function verbal(c){var m=c.r.match(/[iga]/);return m?m[0]:"";}
+function isC(c){return /[cd]/.test(c.r);}
+/* A clause starts at each group of subject chunks. It is dependent when a subordinating conjunction comes right before it. */
+function clauses(cs){
+  var ind=0,dep=[],i=0;
+  while(i<cs.length){
+    if(isS(cs[i])){if(i>0&&cs[i-1].r==="d")dep.push(cs[i-1].text.toLowerCase());else ind++;while(i<cs.length&&isS(cs[i]))i++;}
+    else i++;
+  }
+  return {ind:ind,dep:dep};
+}
+function stypeIndex(k){return k.dep.length?(k.ind>=2?3:2):(k.ind>=2?1:0);}
+function clauseText(k){
+  return k.ind+" independent clause"+(k.ind===1?"":"s")+(k.dep.length?" and "+k.dep.length+" dependent clause"+(k.dep.length===1?"":"s")+" (starting with "+quote(k.dep)+")":" and no dependent clause")+".";
+}
+var STYPE=["Simple","Compound","Complex","Compound-complex"];
+var OPT_CONJ=["Coordinating (FANBOYS)","Subordinating (starts a dependent clause)"];
+var OPT_MOOD=["Indicative (states a fact)","Interrogative (asks a question)","Imperative (gives a command)","Conditional (would or could happen)","Subjunctive (wish, demand, contrary to fact)"];
+var MOOD_WHY=["It states a fact or an opinion.","It asks a question.","It gives a command. The hidden subject is \"you\".","Would, could or might: it depends on a condition.","A wish, a demand, or something contrary to fact. Look at the unusual verb form: were, be, or no -s."];
 
 var WORLDS=[
 {id:"verb",name:"Verbs",skill:"Find the verbs",mark:"--m-verb",type:"select",ask:"Tap every <b>verb</b>",test:isV},
 {id:"subj",name:"Subjects",skill:"Find the complete subjects",mark:"--m-subj",type:"select",ask:"Tap every chunk of a <b>complete subject</b>",test:isS},
 {id:"prep",name:"Prepositional phrases",skill:"Find the prepositional phrases",mark:"--m-prep",type:"select",ask:"Tap every <b>prepositional phrase</b>",test:isP},
 {id:"verbal",name:"Verbals",skill:"Gerund, participle or infinitive?",mark:"--m-verbal",type:"pick",ask:"What is the <b>highlighted</b> part?",opts:OPT_VERBAL},
-{id:"voice",name:"Active and passive",skill:"Active or passive?",mark:"--m-voice",type:"pick",ask:"Is the <b>highlighted</b> verb active or passive?",opts:OPT_VOICE},
+{id:"voice",name:"Active and passive",skill:"Active or passive?",mark:"--m-verb",type:"pick",ask:"Is the <b>highlighted</b> verb active or passive?",opts:OPT_VOICE},
+{id:"conj",name:"Conjunctions",skill:"Coordinating or subordinating?",mark:"--m-voice",type:"pick",ask:"What kind of conjunction is the <b>highlighted</b> word?",opts:OPT_CONJ},
+{id:"stype",name:"Sentence types",skill:"Simple, compound or complex?",mark:"--m-boss",type:"pick",ask:"What <b>type of sentence</b> is this?",opts:STYPE},
+{id:"mood",name:"Verb moods",skill:"Indicative, conditional, subjunctive...",mark:"--m-verbal",type:"pick",ask:"What <b>mood</b> is the highlighted verb in?",opts:OPT_MOOD},
 {id:"paint",name:"Full markup",skill:"Mark every structure in the sentence",mark:"--m-boss",type:"paint",round:5,ask:"Pick a color, then tap the chunks. <b>Color everything you can.</b>"}
 ];
 WORLDS.forEach(function(w){var k=BANK.missions[w.id]||{};w.rule=k.rule||[];w.trick=k.trick||"";w.ex=k.ex||[];});
-var BOSS={id:"boss",name:"Mixed set",skill:"Two questions from each set",mark:"--m-boss"};
+var BOSS={id:"boss",name:"Mixed set",skill:"Questions from every set",mark:"--m-boss"};
 var ROUND=10;
 
 var save={xp:0,stars:{},last:"",days:0,sound:true};
@@ -185,12 +207,31 @@ function makeItem(w,raw){
     it.tgt=shuffle(pl)[0];var t=cs[it.tgt];it.a=t.r==="V"?1:0;
     it.why=t.r==="V"?"A form of be + past participle. The subject receives the action.":/^(was|were|is|are|am) \w+ing$/.test(t.text)?"be + -ing is an ongoing action. The subject is still doing it.":/^(has|have|had) /.test(t.text)?"have + past participle is still active. The subject did it.":"The subject does the action.";
   }
+  else if(w.id==="conj"){
+    cs.forEach(function(c,n){if(isC(c))idx.push(n);});
+    if(!idx.length)return null;
+    it.tgt=shuffle(idx)[0];var j=cs[it.tgt];it.a=j.r==="c"?0:1;
+    it.why=j.r==="c"?"\u201C"+j.text+"\u201D is one of the FANBOYS. It joins two equal parts.":"\u201C"+j.text+"\u201D starts a clause that cannot stand alone.";
+  }else if(w.id==="stype"){
+    var kl=clauses(cs);it.a=stypeIndex(kl);it.why=clauseText(kl);
+  }
   return it;
+}
+function makeMood(w,m){
+  return {w:w,cs:[{r:"o",text:m[0].replace(/\*\*(.+?)\*\*/g,"<b>$1</b>"),punct:""}],a:m[1],why:MOOD_WHY[m[1]]};
+}
+/* Up to n questions for one set, skipping sentences that set cannot use. */
+function build(w,n){
+  var out=[],pool=shuffle(w.id==="mood"?(BANK.moods||[]):SENT);
+  for(var i=0;i<pool.length&&out.length<n;i++){var it=w.id==="mood"?makeMood(w,pool[i]):makeItem(w,pool[i]);if(it)out.push(it);}
+  return out;
 }
 function startRound(id){
   var items=[];
-  if(id==="boss"){WORLDS.forEach(function(w){if(w.id==="paint")return;shuffle(SENT).slice(0,2).forEach(function(r){items.push(makeItem(w,r));});});}
-  else{var w=world(id);items=shuffle(SENT).slice(0,w.round||ROUND).map(function(r){return makeItem(w,r);});}
+  if(id==="boss"){
+    var sets=WORLDS.filter(function(w){return w.id!=="paint";});
+    sets.concat(shuffle(sets).slice(0,2)).forEach(function(w){items=items.concat(build(w,1));});
+  }else{var w=world(id);items=build(w,w.round||ROUND);}
   G={id:id,total:items.length,queue:shuffle(items),i:0,sel:{},paint:{},brush:"v",picked:-1,checked:false,ok:false,first:0,xp:0,streak:0,hint:false};
   view="play";render();
 }
@@ -203,7 +244,7 @@ function finish(){
   if(save.last!==today){save.days=(save.last===dayStr(y))?save.days+1:1;save.last=today;}
   persist();beep(880,.5);view="done";render();
 }
-function accepts(c){var a=[];if(isS(c))a.push("s");if(isV(c))a.push("v");if(isP(c))a.push("p");if(verbal(c))a.push("x");return a;}
+function accepts(c){var a=[];if(isS(c))a.push("s");if(isV(c))a.push("v");if(isP(c))a.push("p");if(verbal(c))a.push("x");if(isC(c))a.push("k");return a;}
 function grade(ok){
   var it=G.queue[G.i];G.checked=true;G.ok=ok;
   if(ok){
@@ -221,15 +262,18 @@ function roleName(r){return PAINT.filter(function(p){return p[0]===r;})[0][1].to
 
 /* The whole sentence with every structure colored. Shown after each answer. */
 function xray(cs){
+  if(cs.length<2)return "";
+  var kz=clauses(cs);
   var h='<div class="xray"><span class="small soft">The whole sentence, color-coded</span><p class="xr">';
   cs.forEach(function(c){
-    var k=verbal(c),cl=isP(c)?"rp":k?"rx":isV(c)?"rv":isS(c)?"rs":"";
+    var k=verbal(c),cl=isP(c)?"rp":k?"rx":isV(c)?"rv":isS(c)?"rs":isC(c)?"rk":"";
     if(isS(c)&&cl!=="rs")cl+=" us";
-    var tag=k==="i"?"infinitive":k==="g"?"gerund":k==="a"?"participle":c.r==="V"?"passive":"";
+    var tag=k==="i"?"infinitive":k==="g"?"gerund":k==="a"?"participle":c.r==="V"?"passive":c.r==="c"?"coord":c.r==="d"?"subord":"";
     h+=(cl?'<span class="'+cl+'">':"")+c.text+(tag?"<sup>"+tag+"</sup>":"")+(cl?"</span>":"")+c.punct+" ";
   });
   h+='</p><div class="legend"><span><i style="background:var(--m-subj)"></i>Subject (also underlined)</span><span><i style="background:var(--m-verb)"></i>Verb</span>'+
-     '<span><i style="background:var(--m-prep)"></i>Prepositional phrase</span><span><i style="background:var(--m-verbal)"></i>Verbal</span></div></div>';
+     '<span><i style="background:var(--m-prep)"></i>Prepositional phrase</span><span><i style="background:var(--m-verbal)"></i>Verbal</span><span><i style="background:var(--m-voice)"></i>Connector</span></div>'+
+     '<p class="small"><b>'+STYPE[stypeIndex(kz)]+' sentence.</b> '+clauseText(kz)+'</p></div>';
   return h;
 }
 function explain(it){
@@ -262,7 +306,7 @@ function render(){
        '<button class="ghost" id="snd">Sound: '+(save.sound?"on":"off")+'</button></div>'+
        '<div class="stats"><div class="stat"><b class="num">'+save.xp+'</b><span>XP</span></div>'+
        '<div class="stat"><b class="num">'+(Math.floor(save.xp/100)+1)+'</b><span>Level</span></div>'+
-       '<div class="stat"><b class="num">'+total+' / 21</b><span>Progress</span></div>'+
+       '<div class="stat"><b class="num">'+total+' / '+(WORLDS.length+1)*3+'</b><span>Progress</span></div>'+
        '<div class="stat"><b class="num">'+save.days+'</b><span>Day streak</span></div></div><div class="missions">';
     WORLDS.concat([BOSS]).forEach(function(w){
       var locked=w.id==="boss"&&!bossOpen();
@@ -301,7 +345,7 @@ function render(){
       });
       h+='</div>';
       if(G.hint&&!G.checked){
-        var cnt=paint?"Look for "+cs.filter(isV).length+" verb chunks, "+cs.filter(isP).length+" prepositional phrases and "+cs.filter(verbal).length+" verbals. ":"There are "+cs.filter(w.test).length+" chunks to find. ";
+        var cnt=paint?"Look for "+cs.filter(isC).length+" connectors, "+cs.filter(isV).length+" verb chunks, "+cs.filter(isP).length+" prepositional phrases and "+cs.filter(verbal).length+" verbals. ":"There are "+cs.filter(w.test).length+" chunks to find. ";
         h+='<p class="hint small">'+cnt+w.trick+'</p>';
       }
       if(!G.checked){
