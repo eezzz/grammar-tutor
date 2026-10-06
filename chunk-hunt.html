@@ -114,36 +114,12 @@ button:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 
 <main id="app"></main>
 
+<script src="question-bank.js"></script>
 <script>
-var KEEP={"verb":{"rule":["A verb shows action (<i>ran</i>) or being (<i>is, was, will be</i>).","Helping verbs count too: <i>was built</i>, <i>has been barking</i>, <i>can change</i>.","<i>to + verb</i> (to learn) is NOT the verb of the sentence. An -ing word with no helper is not one either."],"trick":"Test it: put I, he or they in front. \"They succeed\" works. \"They to learn\" does not.","ex":[["Jimin <b>has been practicing</b> for hours.","Helpers + action count as one verb."],["She <b>wants</b> to sing.","\"to sing\" is to + verb, so it is not the verb."],["The tickets <b>were sold</b> in minutes.","were + sold work together."],["Dancing <b>is</b> hard.","Dancing is a thing here. The verb is \"is\"."],["The girl wearing eyeliner <b>plays</b> defense.","\"wearing\" has no helper, so it only describes her."]]},"subj":{"rule":["Find the verb first. Then ask: <i>who or what</i> did it?","The complete subject is that noun PLUS every word describing it.","Each clause has its own subject, so one sentence can have two or three.","Opening phrases like <i>After lunch,</i> are not part of the subject."],"trick":"\"The paths leading to the hilltops were steep.\" What were steep? All of \"the paths leading to the hilltops\".","ex":[["<b>The fans in the front row</b> screamed.","Who screamed? The whole group of words."],["After the show, <b>the band</b> left.","The opening phrase tells when. It is not the subject."],["<b>The goalie</b> dove, and <b>the ball</b> missed.","Two clauses, so two subjects."],["<b>The girl wearing eyeliner</b> is my cousin.","\"wearing eyeliner\" tells which girl, so it belongs."],["When the lights dimmed, <b>tickets to the show</b> were scanned.","What were scanned? Not just \"tickets\"."]]},"prep":{"rule":["It starts with a preposition (<i>in, on, at, for, with, by, to, as, after, under</i>...) and ends with a noun.","<i>to + noun</i> is a prepositional phrase: <i>to school</i>.","<i>to + verb</i> is an infinitive, not a prepositional phrase: <i>to meet</i>.","Short ones are easy to miss: <i>for use</i>, <i>as a joke</i>, <i>by hand</i>."],"trick":"Look at the word after \"to\". A thing or place? Prepositional phrase. An action? Skip it.","ex":[["She ran <b>to the field</b> to play.","to + place counts. to + verb does not."],["We waited <b>in line</b> <b>for hours</b>.","Two short phrases, both count."],["<b>As a fan</b>, I cried <b>at the concert</b>.","\"As\" can be a preposition."],["It was made <b>by hand</b> <b>for use</b> <b>on stage</b>.","Two-word phrases are easy to skip."],["She is great <b>at dribbling</b>.","An -ing word can come after a preposition."]]},"verbal":{"rule":["A verbal looks like a verb but does a different job.","Gerund: -ing word used as a <b>noun</b>. <i>Running is fun.</i>","Participle: -ing or -ed word used as an <b>adjective</b>. <i>the running water</i>","Infinitive: <b>to + verb</b>. <i>to run</i>"],"trick":"Swap in \"it\". \"It is hard work\" works, so Dancing is a gerund. \"The it fans\" fails, so dancing is a participle.","ex":[["<b>Singing</b> is fun.","Gerund: it names a thing."],["The <b>singing</b> crowd was loud.","Participle: it describes the crowd."],["She wants <b>to sing</b>.","Infinitive: to + verb."],["She walked <b>to the stage</b>.","Prepositional phrase: to + place."],["The <b>painted</b> nails matched her dress.","Participle: -ed word describing nails."]]},"voice":{"rule":["Active: the subject DOES the action. <i>Sam kicked the ball.</i>","Passive: the subject RECEIVES the action. <i>The ball was kicked.</i>","Passive = a form of <i>be</i> + past participle (<i>was kicked, is inhabited, were made</i>).","<i>was sleeping</i> and <i>has won</i> are still active."],"trick":"Add \"by zombies\" after the verb. If it makes sense, it is passive: \"The ball was kicked by zombies.\"","ex":[["Fans <b>bought</b> the tickets.","Active: the fans did it."],["The tickets <b>were bought</b> by fans.","Passive: the tickets received the action."],["She <b>was singing</b>.","Active: was + -ing is still her doing it."],["The song <b>was sung</b> by RM.","Passive: was + past participle."],["The team <b>has scored</b> twice.","Active: has + scored, and the team did it."]]}};
-/* One pool of long sentences. Every chunk carries its roles, so each mission asks about the same sentences from a different angle.
-   s subject, v verb, V passive verb, p prepositional phrase, i infinitive, g gerund, a participle, c connector, o other. */
-var SENT=[
-"p:After the final whistle,|s:the players|sp:on both teams|v:shook|o:hands,|c:and|s:the coach|v:told|o:us|i:to rest|p:before the next game.",
-"c:Although|s:the tickets|V:were sold|p:in ten minutes,|s:my cousin|v:managed|i:to find|o:two seats|p:near the stage.",
-"c:When|s:the lights|v:dimmed,|s:thousands|sp:of fans|sa:holding light sticks|v:began|i:to scream;|s:the opening song|V:was drowned|o:out|p:by the noise.",
-"sg:Blending eyeshadow|v:takes|o:practice,|c:but|s:the artist|sp:in the video|v:finishes|o:each look|p:in five minutes.",
-"p:During the second half,|s:the forward|sa:wearing number nine|v:dribbled|p:past two defenders|c:and|v:scored|p:from the top|p:of the circle.",
-"c:Because|s:the album|V:was released|p:at midnight,|s:fans|sp:around the world|v:stayed|o:awake|i:to hear|o:it first.",
-"s:My sister|v:found|o:a vintage jacket|p:at the thrift store|p:for six dollars,|c:and|s:she|v:refuses|i:to lend|o:it|p:to anyone.",
-"c:Once|s:the rain|v:stopped,|s:the game|sp:between the two rivals|v:continued|p:on the wet turf|c:until|s:the referee|v:blew|o:the whistle.",
-"s:The seven members|sp:of BTS|v:finished|o:their military service|p:in 2025;|p:within a year,|s:they|v:had recorded|o:a new album|c:and|v:announced|o:a world tour.",
-"sg:Learning the choreography|v:took|o:three weeks,|c:but|s:the dancers|v:kept|g:practicing|p:in the studio|c:until|s:every move|v:looked|o:perfect.",
-"p:Before the concert,|s:the singer|v:walked|p:onto the stage|i:to check|o:the sound,|c:while|s:her band|v:waited|p:behind the curtain.",
-"s:The costume|sa:covered in tiny mirrors|V:was sewn|p:by hand,|c:and|s:it|v:sparkles|p:under the lights|p:during every song.",
-"c:If|s:the goalie|v:leaves|o:the net|i:to chase|o:the ball,|s:the defenders|sp:behind her|v:must cover|o:the open space.",
-"p:As a surprise,|s:my best friend|v:hid|o:two tickets|p:inside a birthday card;|s:I|v:screamed|c:when|s:I|v:opened|o:it.",
-"s:The smudged eyeliner|v:looked|o:terrible|p:at first,|c:but|s:she|v:decided|i:to keep|o:it|c:because|s:the messy style|v:matched|o:her outfit.",
-"p:At her old school,|s:the uniforms|V:were chosen|p:by the principal,|c:but|s:the students|sp:at her new school|v:design|o:their own team jerseys.",
-"sg:Thrifting|v:has become|o:popular|p:with teenagers|c:because|s:it|v:saves|o:money|c:and|v:keeps|o:old clothes|p:out of landfills.",
-"c:While|s:the crowd|v:was singing|o:the chorus,|s:the drummer|v:stopped|g:playing|p:in the middle|p:of the song|c:so that|s:everyone|v:could hear|o:the voices.",
-"s:The team|sa:coached by my aunt|v:has won|o:every game|p:since September,|c:and|s:the players|v:hope|i:to reach|o:the state finals|p:in November.",
-"p:Without a mirror,|s:she|v:finished|o:her makeup|p:in the back seat|p:of the car|c:while|s:her brother|v:was complaining|p:about the traffic.",
-"s:The song|V:was written|p:in one afternoon,|c:yet|s:it|v:stayed|p:at number one|p:for eight weeks|c:after|s:it|V:was released.",
-"i:To make the varsity team,|s:a player|v:needs|o:strong stick skills,|c:so|s:my friend|v:practices|g:dribbling|p:in her driveway|p:after school.",
-"c:Until|s:the new turf|V:was installed,|s:games|sp:at our school|V:were canceled|p:after every storm;|o:now|s:the team|v:plays|p:in any weather.",
-"s:The fans|sa:waiting outside the arena|V:were given|o:free posters,|c:and|s:the first hundred people|sp:in line|v:met|o:the band|p:after the show."
-];
+/* Content lives in question-bank.js. This file is code only. */
+var BANK=window.CHUNK_HUNT_BANK||{sentences:[],missions:{}};
+var SENT=[];
+BANK.sentences.forEach(function(g){g.items.forEach(function(s){SENT.push(s);});});
 var OPT_VERBAL=["Gerund (acts like a noun)","Participle (acts like an adjective)","Infinitive (to + verb)","Prepositional phrase"];
 var OPT_VOICE=["Active voice","Passive voice"];
 var PAINT=[["s","Subject","--m-subj"],["v","Verb","--m-verb"],["p","Prepositional phrase","--m-prep"],["x","Verbal","--m-verbal"]];
@@ -159,12 +135,9 @@ var WORLDS=[
 {id:"prep",name:"Phrase Forest",skill:"Find the prepositional phrases",mark:"--m-prep",type:"select",ask:"Tap every <b>prepositional phrase</b>",test:isP},
 {id:"verbal",name:"Verbal Valley",skill:"Gerund, participle or infinitive?",mark:"--m-verbal",type:"pick",ask:"What is the <b>highlighted</b> part?",opts:OPT_VERBAL},
 {id:"voice",name:"Voice Lab",skill:"Active or passive?",mark:"--m-voice",type:"pick",ask:"Is the <b>highlighted</b> verb active or passive?",opts:OPT_VOICE},
-{id:"paint",name:"Color Lab",skill:"Color the whole sentence",mark:"--m-boss",type:"paint",round:5,ask:"Pick a color, then tap the chunks. <b>Color everything you can.</b>",
- rule:["Go in this order, one color at a time.","<b>Verbs</b> first. Each clause has one.","<b>Subjects</b> next: who or what does each verb? Take every word that describes it.","<b>Prepositional phrases</b>: preposition + noun.","<b>Verbals</b>: to + verb, or an -ing / -ed word that is not working as the verb.","Leave the rest blank: objects, and, but, when, because."],
- trick:"A phrase inside a subject, like \"on both teams\", can be the subject color or the phrase color. Both count.",
- ex:[["<b>The fans</b> <b>in line</b> waited.","\"in line\" is part of the subject and also a prepositional phrase."],["She stopped <b>to rest</b>.","to + verb is a verbal, not a prepositional phrase."],["The girl <b>wearing red</b> scored.","\"wearing red\" describes the girl. Verbal."],["They left <b>when</b> it rained.","Words like when, and, but get no color."]]}
+{id:"paint",name:"Color Lab",skill:"Color the whole sentence",mark:"--m-boss",type:"paint",round:5,ask:"Pick a color, then tap the chunks. <b>Color everything you can.</b>"}
 ];
-WORLDS.forEach(function(w){var k=KEEP[w.id];if(k){w.rule=k.rule;w.trick=k.trick;w.ex=k.ex;}});
+WORLDS.forEach(function(w){var k=BANK.missions[w.id]||{};w.rule=k.rule||[];w.trick=k.trick||"";w.ex=k.ex||[];});
 var BOSS={id:"boss",name:"Boss Mix",skill:"Two from every mission",mark:"--m-boss"};
 var ROUND=10;
 
@@ -208,7 +181,7 @@ function makeItem(w,raw){
     it.why=k==="g"?"It names an activity, a thing. Swap in \"it\" and the sentence still works.":k==="a"?"It describes the noun beside it, the way an adjective does.":k==="i"?"to + verb.":"A preposition followed by a noun, not a verb.";
   }else if(w.id==="voice"){
     cs.forEach(function(c,n){if(c.r==="V")pref.push(n);else if(c.r==="v")idx.push(n);});
-    var pl=pref.length&&Math.random()<.55?pref:idx;
+    var pl=pref.length&&(Math.random()<.55||!idx.length)?pref:idx;
     it.tgt=shuffle(pl)[0];var t=cs[it.tgt];it.a=t.r==="V"?1:0;
     it.why=t.r==="V"?"A form of be + past participle. The subject receives the action.":/^(was|were|is|are|am) \w+ing$/.test(t.text)?"be + -ing is an ongoing action. The subject is still doing it.":/^(has|have|had) /.test(t.text)?"have + past participle is still active. The subject did it.":"The subject does the action.";
   }
@@ -282,6 +255,7 @@ function explain(it){
 
 function render(){
   var h="";
+  if(!SENT.length){app.innerHTML='<div class="panel"><h2>The question bank did not load</h2><p>Keep question-bank.js in the same folder as this page, then reload.</p></div>';return;}
   if(view==="home"){
     var total=0;for(var k in save.stars)total+=save.stars[k];
     h+='<div class="top"><div><h1>Chunk <mark>Hunt</mark></h1><p class="soft">Pick one mission. Long sentences, one question at a time.</p></div>'+
