@@ -239,19 +239,35 @@ function makeItem(w,raw){
 function makeMood(w,m){
   return {w:w,cs:[{r:"o",text:m[0].replace(/\*\*(.+?)\*\*/g,"<b>$1</b>"),punct:""}],a:m[1],why:MOOD_WHY[m[1]]};
 }
-/* Up to n questions for one set, skipping sentences that set cannot use. */
-function build(w,n){
-  var out=[],pool=shuffle(w.id==="mood"?(BANK.moods||[]):SENT);
-  for(var i=0;i<pool.length&&out.length<n;i++){var it=w.id==="mood"?makeMood(w,pool[i]):makeItem(w,pool[i]);if(it)out.push(it);}
+function keyOf(x){var s=typeof x==="string"?x:x[0],n=0;for(var i=0;i<s.length;i++)n=(n*31+s.charCodeAt(i))|0;return String(n);}
+/* Up to n questions for one set. Sentences this set has not shown yet come first, and nothing in "used"
+   (the sentences already in this round) is picked again. Once a set runs out of new sentences it starts over.
+   peek = only look, do not record anything. */
+function build(w,n,used,peek){
+  used=used||{};
+  var src=w.id==="mood"?(BANK.moods||[]):SENT,seen=(save.seen&&save.seen[w.id])||[],fresh=[],old=[],out=[],wrapped=false;
+  shuffle(src).forEach(function(x){(seen.indexOf(keyOf(x))<0?fresh:old).push(x);});
+  var pool=fresh.concat(old);
+  for(var i=0;i<pool.length&&out.length<n;i++){
+    var k=keyOf(pool[i]);if(used[k])continue;
+    var it=w.id==="mood"?makeMood(w,pool[i]):makeItem(w,pool[i]);if(!it)continue;
+    it.key=k;out.push(it);
+    if(!peek){used[k]=true;if(i>=fresh.length)wrapped=true;}
+  }
+  if(!peek&&out.length){
+    save.seen=save.seen||{};
+    save.seen[w.id]=(wrapped?[]:seen).concat(out.map(function(o){return o.key;}));
+    persist();
+  }
   return out;
 }
 function startRound(id){
-  var items=[];
+  var items=[],used={};
   if(id==="boss"){
     var sets=WORLDS.filter(function(w){return w.id!=="paint";});
-    sets.concat(shuffle(sets).slice(0,2)).forEach(function(w){items=items.concat(build(w,1));});
-  }else{var w=world(id);items=build(w,w.round||ROUND);}
-  G={id:id,total:items.length,queue:shuffle(items),i:0,sel:{},paint:{},brush:"v",picked:-1,checked:false,ok:false,first:0,xp:0,streak:0,hint:false,notesOpen:true};
+    sets.concat(shuffle(sets).slice(0,2)).forEach(function(w){items=items.concat(build(w,1,used));});
+  }else{var w=world(id);items=build(w,w.round||ROUND,used);}
+  G={id:id,total:items.length,queue:shuffle(items),i:0,sel:{},paint:{},brush:"v",picked:-1,checked:false,ok:false,first:0,xp:0,streak:0,hint:false,notesOpen:true,used:used};
   view="play";render();
   /* The notes start open, then slide shut into their button. */
   var round=G;
@@ -279,7 +295,8 @@ function grade(ok){
     beep(660,.18);
   }else{
     G.streak=0;beep(180,.25);
-    if(!it.retry){var again={};for(var k in it)again[k]=it[k];again.retry=true;G.queue.push(again);}
+    /* After a miss, add a different sentence from the same set instead of repeating this one. */
+    if(!it.retry){var more=build(it.w,1,G.used)[0];if(more){more.retry=true;G.queue.push(more);}}
     G.ex=shuffle(it.w.ex).slice(0,2);
   }
   render();
@@ -369,7 +386,7 @@ function render(){
     var it=G.queue[G.i],w=it.w,cs=it.cs;
     h+='<div class="panel" style="--mk:var('+w.mark+')"><div class="bar">';
     G.queue.forEach(function(_,n){h+='<i class="'+(n<G.i?"done":n===G.i?"now":"")+'"></i>';});
-    h+='</div><div class="row small soft"><span>'+(it.retry?"Second chance":"Question "+(G.i+1)+" of "+G.queue.length+(G.i>0&&G.i===Math.floor(G.total/2)?" · Halfway. Stretch if you want.":""))+'</span><span>Streak '+G.streak+' &middot; +'+G.xp+' XP</span></div>'+
+    h+='</div><div class="row small soft"><span>'+(it.retry?"Extra practice":"Question "+(G.i+1)+" of "+G.queue.length+(G.i>0&&G.i===Math.floor(G.total/2)?" · Halfway. Stretch if you want.":""))+'</span><span>Streak '+G.streak+' &middot; +'+G.xp+' XP</span></div>'+
        notesDrawer(w)+'<p class="ask">'+w.ask+'</p>';
     if(w.type==="select"||w.type==="paint"){
       var paint=w.type==="paint";
@@ -408,7 +425,7 @@ function render(){
     }
     if(G.checked){
       var last=G.i===G.queue.length-1;
-      h+='<div class="fb'+(G.ok?"":" no")+'"><strong>'+(G.ok?(G.streak>=3?G.streak+" in a row.":"Correct."):"Not yet. You will see this one again.")+'</strong>'+explain(it)+
+      h+='<div class="fb'+(G.ok?"":" no")+'"><strong>'+(G.ok?(G.streak>=3?G.streak+" in a row.":"Correct."):"Not yet. One more like this is coming.")+'</strong>'+explain(it)+
          '</div><div class="row"><button class="ghost" id="home">Quit</button><button class="go" id="next">'+(last?"Finish":"Next")+'</button></div>';
     }
     h+='</div>';
